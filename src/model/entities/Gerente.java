@@ -57,15 +57,15 @@ public class Gerente implements Serializable {
 
 	public void gerarMatriculaGerente() {
 
-		String inicioMatriculaAtendente = "F";
+		String inicioMatriculaGerente = "F";
 
 		for (int i = 0; i < 7; i++) {
 
 			Integer matricula = random.nextInt(9);
-			inicioMatriculaAtendente = inicioMatriculaAtendente + matricula;
+			inicioMatriculaGerente = inicioMatriculaGerente + matricula;
 		}
 
-		String concatenar = inicioMatriculaAtendente;
+		String concatenar = inicioMatriculaGerente;
 		setMatricula(concatenar);
 		
 	}
