@@ -15,11 +15,11 @@ public class Cliente implements Serializable {
 	private String email;
 	private String telefone;
 	private Date dataNascimento;
-	
+
 	public Cliente() {
-		 
+
 	}
-	
+
 	public Cliente(String nomeCompleto, String cPF, String email, String telefone, Date dataNascimento) {
 		this.nomeCompleto = nomeCompleto;
 		CPF = cPF;

@@ -30,7 +30,6 @@ public class Conexao_banco_dados {
 				throw new BdExcecao(e.getMessage());
 			}
 		}
-		System.out.println("Conectou");
 		return conexao;
 	}
 
@@ -47,7 +46,6 @@ public class Conexao_banco_dados {
 				throw new BdExcecao(e.getMessage());
 			}
 		}
-		System.out.println("saiu");
 	}
 
 	
