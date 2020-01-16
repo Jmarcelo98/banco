@@ -66,7 +66,7 @@ public class Atendente implements Serializable {
 		this.gerenteResponsavel = gerenteResponsavel;
 	}
 
-	public void gerarMatricula() {
+	public void gerarMatriculaAtendente() {
 
 		String inicioMatriculaAtendente = "C";
 

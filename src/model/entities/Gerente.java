@@ -1,6 +1,7 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class Gerente implements Serializable {
 
@@ -11,6 +12,8 @@ public class Gerente implements Serializable {
 	private String email;
 	private String telefone;
 	private Integer setorResponsavel;
+	
+	Random random = new Random();
 
 	public String getNome_completo() {
 		return nomeCompleto;
@@ -52,4 +55,19 @@ public class Gerente implements Serializable {
 		this.setorResponsavel = setorResponsavel;
 	}
 
+	public void gerarMatriculaGerente() {
+
+		String inicioMatriculaAtendente = "F";
+
+		for (int i = 0; i < 7; i++) {
+
+			Integer matricula = random.nextInt(9);
+			inicioMatriculaAtendente = inicioMatriculaAtendente + matricula;
+		}
+
+		String concatenar = inicioMatriculaAtendente;
+		setMatricula(concatenar);
+		
+	}
+	
 }
