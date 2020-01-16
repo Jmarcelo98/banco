@@ -10,30 +10,30 @@ public class Cliente implements Serializable {
 
 	SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 
-	private String nome_completo;
+	private String nomeCompleto;
 	private String CPF;
 	private String email;
 	private String telefone;
-	private Date data_Nascimento;
+	private Date dataNascimento;
 	
 	public Cliente() {
 		 
 	}
 	
-	public Cliente(String nome_completo, String cPF, String email, String telefone, Date data_Nascimento) {
-		this.nome_completo = nome_completo;
+	public Cliente(String nomeCompleto, String cPF, String email, String telefone, Date dataNascimento) {
+		this.nomeCompleto = nomeCompleto;
 		CPF = cPF;
 		this.email = email;
 		this.telefone = telefone;
-		this.data_Nascimento = data_Nascimento;
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getNome_completo() {
-		return nome_completo;
+		return nomeCompleto;
 	}
 
-	public void setNome_completo(String nome_completo) {
-		this.nome_completo = nome_completo;
+	public void setNome_completo(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
 	}
 
 	public String getCPF() {
@@ -61,11 +61,11 @@ public class Cliente implements Serializable {
 	}
 
 	public Date getData_Nascimento() {
-		return data_Nascimento;
+		return dataNascimento;
 	}
 
-	public void setData_Nascimento(Date data_Nascimento) {
-		this.data_Nascimento = data_Nascimento;
+	public void setData_Nascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 }
