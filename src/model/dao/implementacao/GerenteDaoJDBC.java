@@ -2,19 +2,19 @@ package model.dao.implementacao;
 
 import java.util.List;
 
-import model.dao.AtendenteDao;
-import model.entities.Atendente;
+import model.dao.GerenteDao;
+import model.entities.Gerente;
 
-public class AtendenteDaoJDBC implements AtendenteDao{
+public class GerenteDaoJDBC implements GerenteDao{
 
 	@Override
-	public void inserir(Atendente atendenteObj) {
+	public void inserir(Gerente gerenteObj) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void atualizar(Atendente atendenteObj) {
+	public void atualizar(Gerente gerenteObj) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -26,17 +26,15 @@ public class AtendenteDaoJDBC implements AtendenteDao{
 	}
 
 	@Override
-	public Atendente procurarPelaMatricula(String CPF) {
+	public Gerente procurarPelaMatricula(String CPF) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Atendente> procurarTodos() {
+	public List<Gerente> procurarTodos() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }
