@@ -2,6 +2,7 @@ package model.dao;
 
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
+import model.dao.implementacao.ContaEspecialDaoJDBC;
 import model.dao.implementacao.ContaSimplesDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 
@@ -23,4 +24,8 @@ public class DaoFabrica {
 		return new ContaSimplesDaoJDBC();
 	}
 
+	public static ContaEspecialDao criarContaEspecialDao() {
+		return new ContaEspecialDaoJDBC();
+	}
+	
 }
