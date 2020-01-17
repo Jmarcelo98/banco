@@ -3,6 +3,8 @@ package model.entities;
 import java.io.Serializable;
 import java.util.Random;
 
+import model.services.Matricula;
+
 public class Gerente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -12,7 +14,7 @@ public class Gerente implements Serializable {
 	private String email;
 	private String telefone;
 	private Integer setorResponsavel;
-	
+
 	Random random = new Random();
 
 	public String getNome_completo() {
@@ -55,19 +57,32 @@ public class Gerente implements Serializable {
 		this.setorResponsavel = setorResponsavel;
 	}
 
-	public void gerarMatriculaGerente() {
+	public String gerarMatriculaGerente() {
 
-		String inicioMatriculaGerente = "F";
+		String inicioMatriculaGerente = "G" + Matricula.gerarParteInicialMatricula();
 
-		for (int i = 0; i < 7; i++) {
+		if (Matricula.mesParaMatricula().length() > 1) {
 
-			Integer matricula = random.nextInt(9);
-			inicioMatriculaGerente = inicioMatriculaGerente + matricula;
+			for (int i = 0; i < 4; i++) {
+
+				Integer matricula = random.nextInt(9);
+				inicioMatriculaGerente = inicioMatriculaGerente + matricula;
+			}
+
+		} else {
+
+			for (int i = 0; i < 5; i++) {
+
+				Integer matricula = random.nextInt(9);
+				inicioMatriculaGerente = inicioMatriculaGerente + matricula;
+			}
 		}
 
 		String concatenar = inicioMatriculaGerente;
+
 		setMatricula(concatenar);
-		
+		return concatenar;
+
 	}
-	
+
 }

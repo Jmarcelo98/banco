@@ -29,9 +29,19 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			
 			st.setString(1, atendenteObj.getNome_completo());
 			st.setString(2, atendenteObj.getMatricula());
+			st.setString(3, atendenteObj.getEmail());
+			st.setString(4, atendenteObj.getTelefone());
+			st.setString(5, atendenteObj.getGerente_responsavel());
+			
+			st.executeUpdate();
+			
+			st.close();
 					
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
+		} 
+		finally {
+			Conexao_banco_dados.fecharConexaoComoBanco();
 		}
 
 	}
