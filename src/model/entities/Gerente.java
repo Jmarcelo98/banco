@@ -15,6 +15,18 @@ public class Gerente implements Serializable {
 	private String telefone;
 	private Integer setorResponsavel;
 
+	public Gerente() {
+	}
+
+	public Gerente(String nomeCompleto, String matricula, String email, String telefone, Integer setorResponsavel) {
+		super();
+		this.nomeCompleto = nomeCompleto;
+		this.matricula = matricula;
+		this.email = email;
+		this.telefone = telefone;
+		this.setorResponsavel = setorResponsavel;
+	}
+
 	Random random = new Random();
 
 	public String getNome_completo() {

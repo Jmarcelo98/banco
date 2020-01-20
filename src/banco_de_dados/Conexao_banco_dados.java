@@ -12,8 +12,6 @@ public class Conexao_banco_dados {
 
 	private static Connection conexao = null;
 
-	
-	
 	// CONECTAR COM O BANCO DE DADOS
 	public static Connection abrirConexaoComOBanco() {
 
@@ -33,12 +31,9 @@ public class Conexao_banco_dados {
 		return conexao;
 	}
 
-	
-	
-	
 	// FECHAR CONEXÃO COM O BANCO DE DADOS
 	public static void fecharConexaoComoBanco() {
-		//CONFERINDO SE A CONEXÃO É EXISTENTE E FECHANDO
+		// CONFERINDO SE A CONEXÃO É EXISTENTE E FECHANDO
 		if (conexao != null) {
 			try {
 				conexao.close();
@@ -48,8 +43,6 @@ public class Conexao_banco_dados {
 		}
 	}
 
-	
-	
 	// LER ARQUIVO COM OS CAMINHOS/ITENS NECESSÁRIOS PARA CONEXÃO
 	private static Properties lerPropriedades() {
 		// PEGANDO O ARQUIVO
