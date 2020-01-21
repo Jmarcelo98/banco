@@ -1,26 +1,28 @@
 package aplicacao;
 
-import java.util.InputMismatchException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import model.dao.GerenteDao;
-import model.dao.implementacao.GerenteDaoJDBC;
-import model.entities.Gerente;
-import model.services.CadastrarFuncionario;
+import model.dao.implementacao.SetorDaoJDBC;
+import model.entities.Setor;
 
 public class Programa {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
-		Gerente gerente = new Gerente();
+		SetorDaoJDBC td = new SetorDaoJDBC();
 
-		GerenteDaoJDBC ge = new GerenteDaoJDBC();
-		ge.procurarTodos();
+		List<Setor> list = new ArrayList<>();
+
+		list = td.procurarTodos();
 		
-		
-		
-		
+		for (Setor setor : list) {
+			System.out.println(setor);
+		}
+		System.out.println();
+
 //		System.out.println("1 - Cadastrar");
 //		System.out.println("2 - Pesquisar");
 //		System.out.println("3 - Criar uma nova conta");

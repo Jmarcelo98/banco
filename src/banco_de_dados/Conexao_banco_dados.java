@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class Conexao_banco_dados {
@@ -56,6 +58,26 @@ public class Conexao_banco_dados {
 			throw new BdExcecao(e.getMessage());
 		}
 
+	}
+
+	public static void fecharStatement(Statement st) {
+		if (st != null) {
+			try {
+				st.close();
+			} catch (SQLException e) {
+				throw new BdExcecao(e.getMessage());
+			}
+		}
+	}
+
+	public static void fehcarResultSet(ResultSet rs) {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				throw new BdExcecao(e.getMessage());
+			}
+		}
 	}
 
 }

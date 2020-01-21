@@ -3,6 +3,10 @@ package model.entities;
 public class Setor {
 
 	private String nomeSetor;
+	private Integer id;
+
+	public Setor() {
+	}
 
 	public Setor(String nomeSetor) {
 		super();
@@ -15,6 +19,14 @@ public class Setor {
 
 	public void setNomeSetor(String nomeSetor) {
 		this.nomeSetor = nomeSetor;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }
