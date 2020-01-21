@@ -1,46 +1,34 @@
 package aplicacao;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import model.dao.implementacao.SetorDaoJDBC;
-import model.entities.Setor;
+import model.services.CadastrarFuncionario;
 
 public class Programa {
 
 	public static void main(String[] args) {
+
+		CadastrarFuncionario cadastrarFuncionario = new CadastrarFuncionario();
+
 		Scanner sc = new Scanner(System.in);
 
-		SetorDaoJDBC td = new SetorDaoJDBC();
+		System.out.println("1 - Cadastrar");
+		System.out.println("2 - Pesquisar");
+		System.out.println("3 - Criar uma nova conta");
+		System.out.print("Informe a opção desejada: ");
 
-		List<Setor> list = new ArrayList<>();
+		try {
 
-		list = td.procurarTodos();
-		
-		for (Setor setor : list) {
-			System.out.println(setor);
+			int acaoEscolhida = sc.nextInt();
+			cadastrarFuncionario.cadastro();
+
+			
+
+		} catch (InputMismatchException e) {
+			System.out.println();
+			System.err.println("ERA ESPERADO UM NÚMERO INTEIRO!");
 		}
-		System.out.println();
-
-//		System.out.println("1 - Cadastrar");
-//		System.out.println("2 - Pesquisar");
-//		System.out.println("3 - Criar uma nova conta");
-//		System.out.print("Informe a opção desejada: ");
-//
-//		try {
-//
-//			int acaoEscolhida = sc.nextInt();
-//
-//			if (acaoEscolhida == 1) {
-//				CadastrarFuncionario cadastrarFuncionar = new CadastrarFuncionario();
-//				cadastrarFuncionar.cadastro();
-//			}
-//
-//		} catch (InputMismatchException e) {
-//			System.out.println();
-//			System.err.println("ERA ESPERADO UM NÚMERO INTEIRO!");
-//		}
 
 //		Atendente atendente = new Atendente();
 //

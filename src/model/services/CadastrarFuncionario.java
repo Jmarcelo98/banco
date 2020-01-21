@@ -3,8 +3,8 @@ package model.services;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.mysql.jdbc.PreparedStatement;
-
+import model.dao.implementacao.GerenteDaoJDBC;
+import model.dao.implementacao.SetorDaoJDBC;
 import model.entities.Atendente;
 import model.entities.Gerente;
 
@@ -13,6 +13,9 @@ public class CadastrarFuncionario {
 	Scanner sc = new Scanner(System.in);
 
 	Atendente atendente = new Atendente();
+	Gerente gerente = new Gerente();
+	SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
+	GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
 
 	public void cadastro() {
 
@@ -61,46 +64,43 @@ public class CadastrarFuncionario {
 		System.out.print("TELEFONE COM (DD): ");
 		String telefone = sc.nextLine();
 		String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
-	
-		
-		
-		
-		//Atendente atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, gerenteResponsavel);
-		
-		
+
+		// Atendente atendente = new Atendente(nomeCompleto, matricula, email,
+		// telefoneFomartado, gerenteResponsavel);
+
 		System.out.println("CHEGOU AQUI");
 
 	}
 
 	public void cadastrarGerente() {
-		
+
 		System.out.println();
 		System.out.println("--- FORNEÇA OS DADOS CORRETAMENTE ---");
 
 		System.out.print("NOME COMPLETO: ");
 		sc.nextLine();
-		String nomeCompleto = sc.nextLine();
+		String nomeCompleto = sc.nextLine().toUpperCase();
 
-		String matricula = atendente.gerarMatriculaAtendente();
+		String matricula = atendente.gerarMatriculaAtendente().toUpperCase();
 
 		System.out.print("EMAIL: ");
-		String email = sc.nextLine();
+		String email = sc.nextLine().toUpperCase();
 
 		System.out.print("TELEFONE COM (DD): ");
 		String telefone = sc.nextLine();
 		String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
-	
-		
-		System.out.println();
-		
-		System.out.println("SETOR RESPONSÁVEL");
-		
-		
-		
-		//Gerente gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel)
-		
-		System.out.println("CHEGOU AQUI");
 
+		System.out.println();
+
+		setorDaoJDBC.procurarTodos();
+		System.out.println();
+		System.out.println("INFORME O VALOR DO \"ID\" DO SETOR RESPONSÁVEL: ");
+		int setorResponsavel = sc.nextInt();
+
+		gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
+		gerenteDaoJDBC.inserir(gerente);
+
+		System.out.println("GERENTE CADASTRADO COM SUCESSO!!");
 
 	}
 

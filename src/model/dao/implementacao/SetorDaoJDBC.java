@@ -60,8 +60,7 @@ public class SetorDaoJDBC implements SetorDao {
 				int iddd = rs.getInt("ID");
 				String nomes = rs.getString("SETOR");
 
-				System.out.println("ID: " + iddd + " SETOR: " + nomes);
-
+				System.out.println("ID: " + iddd + "  SETOR: " + nomes);
 			}
 
 			return lista;
