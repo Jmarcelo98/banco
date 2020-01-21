@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.services.CadastrarFuncionario;
+import model.services.ValidarEmail;
 
 public class Programa {
 
@@ -12,6 +13,7 @@ public class Programa {
 		CadastrarFuncionario cadastrarFuncionario = new CadastrarFuncionario();
 
 		Scanner sc = new Scanner(System.in);
+
 
 		System.out.println("1 - Cadastrar");
 		System.out.println("2 - Pesquisar");
@@ -23,7 +25,9 @@ public class Programa {
 			int acaoEscolhida = sc.nextInt();
 			cadastrarFuncionario.cadastro();
 
-			
+			if (acaoEscolhida == 1) {
+				cadastrarFuncionario.cadastro();
+			}
 
 		} catch (InputMismatchException e) {
 			System.out.println();

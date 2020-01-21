@@ -57,10 +57,10 @@ public class SetorDaoJDBC implements SetorDao {
 
 			while (rs.next()) {
 
-				int iddd = rs.getInt("ID");
-				String nomes = rs.getString("SETOR");
+				int idSetor = rs.getInt("ID");
+				String nomeSetor = rs.getString("SETOR");
 
-				System.out.println("ID: " + iddd + "  SETOR: " + nomes);
+				System.out.println("ID: " + idSetor + "  SETOR: " + nomeSetor);
 			}
 
 			return lista;
@@ -68,7 +68,7 @@ public class SetorDaoJDBC implements SetorDao {
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
 		} finally {
-			Conexao_banco_dados.fehcarResultSet(rs);
+			Conexao_banco_dados.fecharResultSet(rs);
 			Conexao_banco_dados.fecharStatement(st);
 		}
 

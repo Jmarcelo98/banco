@@ -11,7 +11,7 @@ import model.dao.AtendenteDao;
 import model.entities.Atendente;
 
 public class AtendenteDaoJDBC implements AtendenteDao {
-	
+
 	Connection conexao = null;
 	PreparedStatement st = null;
 
@@ -19,29 +19,31 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 	public void inserir(Atendente atendenteObj) {
 
 		try {
-			
+
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
-			
+
 			st = conexao.prepareStatement("INSERT INTO atendente "
-					+ "(NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, GERENTE_RESPONSAVEL)"
-					+ "values "
-					+ "(?,?,?,?,?)");
-			
+					+ "(NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, GERENTE_RESPONSAVEL)" + "values " + "(?,?,?,?,?)");
+
 			st.setString(1, atendenteObj.getNome_completo());
 			st.setString(2, atendenteObj.getMatricula());
 			st.setString(3, atendenteObj.getEmail());
-			st.setString(4, atendenteObj.getTelefone());		
+			st.setString(4, atendenteObj.getTelefone());
 			st.setString(5, atendenteObj.getGerente_responsavel());
-			
-			st.executeUpdate();
-			
-			st.close();
-					
+
+			if (atendenteObj.getNome_completo() != null && atendenteObj.getMatricula() != null
+					&& atendenteObj.getEmail() != null && atendenteObj.getTelefone() != null
+					&& atendenteObj.getGerente_responsavel() != null) {
+				st.executeUpdate();
+			} else {
+				System.err.println("CAMPOS NÃO PODEM SER NULOS");
+			}
+
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
-		} 
-		finally {
+		} finally {
 			Conexao_banco_dados.fecharConexaoComoBanco();
+			Conexao_banco_dados.fecharStatement(st);
 		}
 
 	}
@@ -54,7 +56,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 	@Override
 	public void deletarPelaMatricula(String CPF) {
-		
+
 	}
 
 	@Override

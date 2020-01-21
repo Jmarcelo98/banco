@@ -16,6 +16,7 @@ public class CadastrarFuncionario {
 	Gerente gerente = new Gerente();
 	SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
 	GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
+	ValidarEmail validarEmail = new ValidarEmail();
 
 	public void cadastro() {
 
@@ -53,10 +54,9 @@ public class CadastrarFuncionario {
 
 		System.out.print("NOME COMPLETO: ");
 		sc.nextLine();
-		String nomeCompleto = sc.nextLine();
+		String nomeCompleto = sc.nextLine().toUpperCase();
 
-		String matricula = atendente.gerarMatriculaAtendente();
-		atendente.setMatricula(matricula);
+		String matricula = atendente.gerarMatriculaAtendente().toUpperCase();
 
 		System.out.print("EMAIL: ");
 		String email = sc.nextLine();
@@ -65,10 +65,14 @@ public class CadastrarFuncionario {
 		String telefone = sc.nextLine();
 		String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
 
-		// Atendente atendente = new Atendente(nomeCompleto, matricula, email,
-		// telefoneFomartado, gerenteResponsavel);
+		System.out.println();
 
-		System.out.println("CHEGOU AQUI");
+		gerenteDaoJDBC.retornarGerenteNome_Matricula();
+		System.out.println();
+		System.out.println("INFORME O VALOR DA \"MATRICULA\" DO GERENTE RESPONSÁVEL: ");
+		String valorMatricula = sc.nextLine().toUpperCase();
+
+		atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, valorMatricula);
 
 	}
 
@@ -86,6 +90,13 @@ public class CadastrarFuncionario {
 		System.out.print("EMAIL: ");
 		String email = sc.nextLine().toUpperCase();
 
+		ValidarEmail validarEmail = new ValidarEmail(email);
+		boolean validacao = validarEmail.validarEmail();
+		
+		if (validacao == false) {
+			System.err.println("EMAIL NÃO VÁLIDADO");
+		}
+
 		System.out.print("TELEFONE COM (DD): ");
 		String telefone = sc.nextLine();
 		String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
@@ -97,10 +108,8 @@ public class CadastrarFuncionario {
 		System.out.println("INFORME O VALOR DO \"ID\" DO SETOR RESPONSÁVEL: ");
 		int setorResponsavel = sc.nextInt();
 
-		gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
-		gerenteDaoJDBC.inserir(gerente);
-
-		System.out.println("GERENTE CADASTRADO COM SUCESSO!!");
+//		gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
+//		gerenteDaoJDBC.inserir(gerente);
 
 	}
 

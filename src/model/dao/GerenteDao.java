@@ -16,5 +16,7 @@ public interface GerenteDao {
 	Gerente procurarPelaMatricula(String CPF);
 
 	List<Gerente> procurarTodos();
+	
+	List<Gerente> retornarGerenteNome_Matricula();
 
 }

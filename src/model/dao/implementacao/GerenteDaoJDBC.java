@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import banco_de_dados.BdExcecao;
@@ -32,14 +33,19 @@ public class GerenteDaoJDBC implements GerenteDao {
 			st.setString(4, gerenteObj.getTelefone());
 			st.setInt(5, gerenteObj.getSetorResponsavel());
 
-			st.executeUpdate();
+			int linhasAFetadas = st.executeUpdate();
 
-			st.close();
+			if (linhasAFetadas >= 1) {
+				System.out.println("GERENTE CADASTRADO COM SUCESSO!!");
+			} else {
+				System.err.println("ERRO AO CADASTRAR GERENTE!!");
+			}
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
 		} finally {
 			Conexao_banco_dados.fecharConexaoComoBanco();
+			Conexao_banco_dados.fecharStatement(st);
 		}
 
 	}
@@ -65,6 +71,37 @@ public class GerenteDaoJDBC implements GerenteDao {
 	@Override
 	public List<Gerente> procurarTodos() {
 		return null;
+
+	}
+
+	public List<Gerente> retornarGerenteNome_Matricula() {
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			List<Gerente> lista = new ArrayList<>();
+
+			st = conexao.prepareStatement("select NOME_COMPLETO, MATRICULA from gerente");
+
+			rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				String matriculaGerente = rs.getString("MATRICULA");
+				String nomeGerente = rs.getString("NOME_COMPLETO");
+
+				System.out.println("MATRICULA: " + matriculaGerente + "  NOME COMPLETO: " + nomeGerente);
+
+			}
+			return lista;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+		}
 
 	}
 

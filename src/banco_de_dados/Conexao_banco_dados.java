@@ -70,7 +70,7 @@ public class Conexao_banco_dados {
 		}
 	}
 
-	public static void fehcarResultSet(ResultSet rs) {
+	public static void fecharResultSet(ResultSet rs) {
 		if (rs != null) {
 			try {
 				rs.close();
