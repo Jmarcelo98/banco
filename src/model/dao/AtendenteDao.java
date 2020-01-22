@@ -10,10 +10,10 @@ public interface AtendenteDao {
 
 	void atualizar(Atendente atendenteObj);
 
-	void deletarPelaMatricula(String CPF);
+	void deletarPelaMatricula(String Matricula);
 
 	// SE NÃO EXISTIR, RETORNA NULL
-	Atendente procurarPelaMatricula(String CPF);
+	Atendente procurarPelaMatricula(String Matricula);
 
 	List<Atendente> procurarTodos();
 

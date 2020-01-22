@@ -87,30 +87,33 @@ public class CadastrarFuncionario {
 
 		String matricula = atendente.gerarMatriculaAtendente().toUpperCase();
 
+		gerenteDaoJDBC.procurarPelaMatricula(matricula);
+
 		System.out.print("EMAIL: ");
 		String email = sc.nextLine().toUpperCase();
 
 		ValidarEmail validarEmail = new ValidarEmail(email);
 		boolean validacao = validarEmail.validarEmail();
-		
+
 		if (validacao == false) {
+
 			System.err.println("EMAIL NÃO VÁLIDADO");
+
+		} else {
+			System.out.print("TELEFONE COM (DD): ");
+			String telefone = sc.nextLine();
+			String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
+
+			System.out.println();
+
+			setorDaoJDBC.procurarTodos();
+			System.out.println();
+			System.out.println("INFORME O VALOR DO \"ID\" DO SETOR RESPONSÁVEL: ");
+			int setorResponsavel = sc.nextInt();
+
+//			gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
+//			gerenteDaoJDBC.inserir(gerente);
 		}
-
-		System.out.print("TELEFONE COM (DD): ");
-		String telefone = sc.nextLine();
-		String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
-
-		System.out.println();
-
-		setorDaoJDBC.procurarTodos();
-		System.out.println();
-		System.out.println("INFORME O VALOR DO \"ID\" DO SETOR RESPONSÁVEL: ");
-		int setorResponsavel = sc.nextInt();
-
-//		gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
-//		gerenteDaoJDBC.inserir(gerente);
-
 	}
 
 	public void cadastrarCliente() {

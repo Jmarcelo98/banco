@@ -57,15 +57,53 @@ public class GerenteDaoJDBC implements GerenteDao {
 	}
 
 	@Override
-	public void deletarPelaMatricula(String CPF) {
+	public void deletarPelaMatricula(String Matricula) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public Gerente procurarPelaMatricula(String CPF) {
-		// TODO Auto-generated method stub
-		return null;
+	public Gerente procurarPelaMatricula(String Matricula) {
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement(
+					"select NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR from GERENTE,SETOR where SETOR_RESPONSAVEL = ID AND MATRICULA = ?");
+
+			st.setString(1, Matricula);
+
+			rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				System.out.println();
+
+				String nome_Completo = rs.getString("NOME_COMPLETO");
+				String matricula = rs.getString("MATRICULA");
+				String email = rs.getString("EMAIL");
+				String telefone = rs.getString("TELEFONE");
+				String setorRespon = rs.getString("SETOR");
+
+				System.out.println("NOME COMPLETO: " + nome_Completo);
+				System.out.println("MATRICULA: " + matricula);
+				System.out.println("EMAIL: " + email);
+				System.out.println("TELEFONE: " + telefone);
+				System.out.println("SETOR_RESPONSAVEL: " + setorRespon);
+
+			}
+
+			return null;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
+
 	}
 
 	@Override

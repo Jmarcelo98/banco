@@ -55,12 +55,12 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 	}
 
 	@Override
-	public void deletarPelaMatricula(String CPF) {
+	public void deletarPelaMatricula(String Matricula) {
 
 	}
 
 	@Override
-	public Atendente procurarPelaMatricula(String CPF) {
+	public Atendente procurarPelaMatricula(String Matricula) {
 		// TODO Auto-generated method stub
 		return null;
 	}

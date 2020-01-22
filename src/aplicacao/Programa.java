@@ -14,13 +14,12 @@ public class Programa {
 
 		Scanner sc = new Scanner(System.in);
 
-
-		System.out.println("1 - Cadastrar");
-		System.out.println("2 - Pesquisar");
-		System.out.println("3 - Criar uma nova conta");
-		System.out.print("Informe a opção desejada: ");
-
 		try {
+
+			System.out.println("1 - Cadastrar");
+			System.out.println("2 - Pesquisar");
+			System.out.println("3 - Criar uma nova conta");
+			System.out.print("Informe a opção desejada: ");
 
 			int acaoEscolhida = sc.nextInt();
 			cadastrarFuncionario.cadastro();

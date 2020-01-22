@@ -10,10 +10,10 @@ public interface GerenteDao {
 
 	void atualizar(Gerente gerenteObj);
 
-	void deletarPelaMatricula(String CPF);
+	void deletarPelaMatricula(String Matricula);
 
 	// SE NÃO EXISTIR, RETORNA NULL
-	Gerente procurarPelaMatricula(String CPF);
+	Gerente procurarPelaMatricula(String Matricula);
 
 	List<Gerente> procurarTodos();
 	
