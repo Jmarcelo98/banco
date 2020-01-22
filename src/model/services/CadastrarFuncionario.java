@@ -2,6 +2,7 @@ package model.services;
 
 import java.util.Scanner;
 
+import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.dao.implementacao.SetorDaoJDBC;
 import model.entities.Atendente;
@@ -16,6 +17,7 @@ public class CadastrarFuncionario {
 	SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
 	GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
 	ValidarEmail validarEmail = new ValidarEmail();
+	AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
 
 	public void cadastrarAtendente() {
 
@@ -28,7 +30,7 @@ public class CadastrarFuncionario {
 		String matricula = atendente.gerarMatriculaAtendente().toUpperCase();
 
 		System.out.print("EMAIL: ");
-		String email = sc.nextLine();
+		String email = sc.nextLine().toUpperCase();
 
 		ValidarEmail validarEmail = new ValidarEmail(email);
 		boolean validacao = validarEmail.validarEmail();
@@ -36,7 +38,7 @@ public class CadastrarFuncionario {
 		if (validacao == false) {
 
 			System.err.println("EMAIL INVÁLIDADO");
-			
+
 		} else {
 
 			System.out.print("TELEFONE COM (DD): ");
@@ -57,7 +59,19 @@ public class CadastrarFuncionario {
 			System.out.println("TELEFONE: " + telefone);
 			System.out.println("GERENTE RESPONSÁVEL: " + gerenteDaoJDBC.nomeMatriculaConfirmacao(valorMatricula));
 
-//			atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, valorMatricula);
+			System.out.println();
+
+			System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE ATENDENTE (Y/N): ");
+			char resposta = sc.next().charAt(0);
+
+			if (resposta == 'y') {
+				atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, valorMatricula);
+				atendenteDaoJDBC.inserir(atendente);
+				System.out.println("ATENDENTE CADASTRADO COM SUCESSO!!");
+			} else {
+				System.out.println();
+				System.out.println("ATENDENTE NÃO CADASTRADO!! ");
+			}
 
 		}
 

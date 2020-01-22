@@ -31,13 +31,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			st.setString(4, atendenteObj.getTelefone());
 			st.setString(5, atendenteObj.getGerente_responsavel());
 
-			if (atendenteObj.getNome_completo() != null && atendenteObj.getMatricula() != null
-					&& atendenteObj.getEmail() != null && atendenteObj.getTelefone() != null
-					&& atendenteObj.getGerente_responsavel() != null) {
-				st.executeUpdate();
-			} else {
-				System.err.println("CAMPOS NÃO PODEM SER NULOS");
-			}
+			st.executeUpdate();
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());

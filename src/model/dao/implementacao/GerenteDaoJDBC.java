@@ -155,14 +155,14 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			rs = st.executeQuery();
 
-			String nomeCompleto = "Nome completo: ";
+			String nomeCompleto = " ";
 
 			while (rs.next()) {
 
 				String matriculaGerente = rs.getString("MATRICULA");
 				String nomeGerente = rs.getString("NOME_COMPLETO");
 
-				nomeCompleto = nomeCompleto + nomeGerente + " Matricula: " + matriculaGerente;
+				nomeCompleto = nomeCompleto + nomeGerente + " | MATRICULA: " + matriculaGerente;
 
 			}
 			return nomeCompleto;
