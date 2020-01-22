@@ -74,4 +74,33 @@ public class SetorDaoJDBC implements SetorDao {
 
 	}
 
+	public String mostrarSetorDeAcordoComId(int id) {
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement("select setor from setor where id = ?");
+
+			st.setInt(1, id);
+
+			rs = st.executeQuery();
+
+			String finals = null;
+
+			while (rs.next()) {
+				String setor = rs.getString("SETOR");
+				finals = setor;
+			}
+			return finals;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+		}
+
+	}
+
 }

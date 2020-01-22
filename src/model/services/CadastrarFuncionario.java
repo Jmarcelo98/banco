@@ -55,8 +55,6 @@ public class CadastrarFuncionario {
 		String nomeCompleto = sc.nextLine().toUpperCase();
 
 		String matricula = atendente.gerarMatriculaAtendente().toUpperCase();
-//
-//		gerenteDaoJDBC.procurarPelaMatricula(matricula);
 
 		System.out.print("EMAIL: ");
 		String email = sc.nextLine().toUpperCase();
@@ -69,6 +67,7 @@ public class CadastrarFuncionario {
 			System.err.println("EMAIL NÃO VÁLIDADO");
 
 		} else {
+
 			System.out.print("TELEFONE COM (DD): ");
 			String telefone = sc.nextLine();
 			String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
@@ -80,8 +79,26 @@ public class CadastrarFuncionario {
 			System.out.print("INFORME O \"ID\" DE QUAL SETOR O GERENTE É RESPONSÁVEL: ");
 			int setorResponsavel = sc.nextInt();
 
-			gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
-			gerenteDaoJDBC.inserir(gerente);
+			System.out.println();
+			System.out.println("NOME COMPLETO: " + nomeCompleto);
+			System.out.println("MATRICULA: " + matricula);
+			System.out.println("EMAIL: " + email);
+			System.out.println("TELEFONE: " + telefone);
+			System.out.println("SETOR RESPONSÁVEL: " + setorDaoJDBC.mostrarSetorDeAcordoComId(setorResponsavel));
+
+			System.out.println();
+
+			System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE (Y/N): ");
+			char resposta = sc.next().charAt(0);
+
+			if (resposta == 'y') {
+				gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
+				gerenteDaoJDBC.inserir(gerente);
+			} else {
+				System.out.println();
+				System.out.println("GERENTE NÃO CADASTRADO!! ");
+			}
+
 		}
 	}
 
