@@ -4,7 +4,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.services.CadastrarFuncionario;
-import model.services.ValidarEmail;
 
 public class Programa {
 
@@ -22,10 +21,27 @@ public class Programa {
 			System.out.print("Informe a opção desejada: ");
 
 			int acaoEscolhida = sc.nextInt();
-			cadastrarFuncionario.cadastro();
 
 			if (acaoEscolhida == 1) {
-				cadastrarFuncionario.cadastro();
+
+				System.out.println();
+				System.out.println("1 - Cadastrar atendente");
+				System.out.println("2 - Cadastrar gerente");
+				System.out.println("3 - Cadastrar cliente");
+				System.out.print("Informe a opção desejada: ");
+
+				int opcaoDeCadastro = sc.nextInt();
+
+				if (opcaoDeCadastro == 1) {
+					cadastrarFuncionario.cadastrarAtendente();
+				} else if (opcaoDeCadastro == 2) {
+					cadastrarFuncionario.cadastrarGerente();
+				} else if (opcaoDeCadastro == 3) {
+					cadastrarFuncionario.cadastrarCliente();
+				} else {
+					System.err.println("Opção inválida!");
+				}
+
 			}
 
 		} catch (InputMismatchException e) {
