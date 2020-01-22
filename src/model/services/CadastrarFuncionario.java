@@ -23,7 +23,6 @@ public class CadastrarFuncionario {
 		System.out.println("--- FORNEÇA OS DADOS CORRETAMENTE ---");
 
 		System.out.print("NOME COMPLETO: ");
-		sc.nextLine();
 		String nomeCompleto = sc.nextLine().toUpperCase();
 
 		String matricula = atendente.gerarMatriculaAtendente().toUpperCase();
@@ -31,18 +30,36 @@ public class CadastrarFuncionario {
 		System.out.print("EMAIL: ");
 		String email = sc.nextLine();
 
-		System.out.print("TELEFONE COM (DD): ");
-		String telefone = sc.nextLine();
-		String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
+		ValidarEmail validarEmail = new ValidarEmail(email);
+		boolean validacao = validarEmail.validarEmail();
 
-		System.out.println();
+		if (validacao == false) {
 
-		gerenteDaoJDBC.retornarGerenteNome_Matricula();
-		System.out.println();
-		System.out.println("INFORME O VALOR DA \"MATRICULA\" DO GERENTE RESPONSÁVEL: ");
-		String valorMatricula = sc.nextLine().toUpperCase();
+			System.err.println("EMAIL INVÁLIDADO");
+			
+		} else {
 
-		atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, valorMatricula);
+			System.out.print("TELEFONE COM (DD): ");
+			String telefone = sc.nextLine();
+			String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""), "(##) #####-####");
+
+			System.out.println();
+
+			gerenteDaoJDBC.retornarGerenteNome_Matricula();
+			System.out.println();
+			System.out.println("INFORME O VALOR DA \"MATRICULA\" DO GERENTE RESPONSÁVEL: ");
+			String valorMatricula = sc.nextLine().toUpperCase();
+
+			System.out.println();
+			System.out.println("NOME COMPLETO: " + nomeCompleto);
+			System.out.println("MATRICULA: " + matricula);
+			System.out.println("EMAIL: " + email);
+			System.out.println("TELEFONE: " + telefone);
+			System.out.println("GERENTE RESPONSÁVEL: " + gerenteDaoJDBC.nomeMatriculaConfirmacao(valorMatricula));
+
+//			atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, valorMatricula);
+
+		}
 
 	}
 
@@ -64,7 +81,7 @@ public class CadastrarFuncionario {
 
 		if (validacao == false) {
 
-			System.err.println("EMAIL NÃO VÁLIDADO");
+			System.err.println("EMAIL INVÁLIDADO");
 
 		} else {
 

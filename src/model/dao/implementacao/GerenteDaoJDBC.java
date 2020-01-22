@@ -142,4 +142,36 @@ public class GerenteDaoJDBC implements GerenteDao {
 		}
 
 	}
+
+	public String nomeMatriculaConfirmacao(String Matricula) {
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement("select nome_completo, matricula from gerente where matricula = ?");
+
+			st.setString(1, Matricula);
+
+			rs = st.executeQuery();
+
+			String nomeCompleto = "Nome completo: ";
+
+			while (rs.next()) {
+
+				String matriculaGerente = rs.getString("MATRICULA");
+				String nomeGerente = rs.getString("NOME_COMPLETO");
+
+				nomeCompleto = nomeCompleto + nomeGerente + " Matricula: " + matriculaGerente;
+
+			}
+			return nomeCompleto;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+		}
+	}
 }
