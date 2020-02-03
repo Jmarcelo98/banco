@@ -35,17 +35,19 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			int linhasAFetadas = st.executeUpdate();
 
-			if (linhasAFetadas >= 1) {
+			if (linhasAFetadas > 0) {
+				System.out.println();
 				System.out.println("GERENTE CADASTRADO COM SUCESSO!!");
 			} else {
+				System.out.println();
 				System.err.println("ERRO AO CADASTRAR GERENTE!!");
 			}
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
 		} finally {
-			Conexao_banco_dados.fecharConexaoComoBanco();
 			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
 		}
 
 	}

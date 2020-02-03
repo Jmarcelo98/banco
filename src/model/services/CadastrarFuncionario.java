@@ -122,7 +122,7 @@ public class CadastrarFuncionario {
 			System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE (Y/N): ");
 			char resposta = sc.next().charAt(0);
 
-			if (resposta == 'y') {
+			if (resposta == 'y' || resposta == 'Y') {
 				gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
 				gerenteDaoJDBC.inserir(gerente);
 			} else {
