@@ -31,7 +31,15 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			st.setString(4, atendenteObj.getTelefone());
 			st.setString(5, atendenteObj.getGerente_responsavel());
 
-			st.executeUpdate();
+			int linhasAfetadas = st.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				System.out.println();
+				System.out.println("ATENDENTE CADASTRADO COM SUCESSO!! ");
+			} else {
+				System.out.println();
+				System.out.println("ERRO AO CADASTRAR ATENDENTE!! ");
+			}
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());

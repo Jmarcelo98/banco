@@ -49,7 +49,7 @@ public class CadastrarFuncionario {
 
 			gerenteDaoJDBC.retornarGerenteNome_Matricula();
 			System.out.println();
-			System.out.println("INFORME O VALOR DA \"MATRICULA\" DO GERENTE RESPONSÁVEL: ");
+			System.out.print("INFORME O VALOR DA \"MATRICULA\" DO GERENTE RESPONSÁVEL: ");
 			String valorMatricula = sc.nextLine().toUpperCase();
 
 			System.out.println();
@@ -64,10 +64,10 @@ public class CadastrarFuncionario {
 			System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE ATENDENTE (Y/N): ");
 			char resposta = sc.next().charAt(0);
 
-			if (resposta == 'y') {
+			if (resposta == 'y' || resposta == 'Y') {
 				atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, valorMatricula);
 				atendenteDaoJDBC.inserir(atendente);
-				System.out.println("ATENDENTE CADASTRADO COM SUCESSO!!");
+
 			} else {
 				System.out.println();
 				System.out.println("ATENDENTE NÃO CADASTRADO!! ");
