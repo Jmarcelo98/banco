@@ -1,6 +1,5 @@
 package model.services;
 
-import java.lang.Character.Subset;
 import java.text.ParseException;
 
 import javax.swing.text.MaskFormatter;
@@ -27,11 +26,35 @@ public class FormatarStrings {
 		mf.setValueContainsLiteralCharacters(false);
 		value.replaceAll("([0-9]) ", "$1");
 
-		String formantando = value.substring(0, 2) + "/" + value.substring(2, 4) + "/"
-				+ value.substring(4, 8);
+		String formantando = value.substring(0, 2) + "/" + value.substring(2, 4) + "/" + value.substring(4, 8);
 
 		return formantando;
 
+	}
+
+	public static String formatCPF(String value) {
+
+		MaskFormatter mf;
+		mf = new MaskFormatter();
+		mf.setValueContainsLiteralCharacters(false);
+		value.replaceAll("([0-9]) ", "$1");
+
+		String formantando = value.substring(0, 3) + "." + value.substring(3, 6) + "." + value.substring(6, 9) + "-"
+				+ value.substring(9, 11);
+
+		return formantando;
+	}
+
+	public static String formatRG(String value) {
+
+		MaskFormatter mf;
+		mf = new MaskFormatter();
+		mf.setValueContainsLiteralCharacters(false);
+		value.replaceAll("([0-9]) ", "$1");
+
+		String formantando = value.substring(0, 1) + "." + value.substring(2, 4) + "." + value.substring(4, 6);
+
+		return formantando;
 	}
 
 }

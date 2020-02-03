@@ -164,14 +164,18 @@ public class CadastrarFuncionario {
 			System.out.println();
 			System.out.println("--- FORNEÇA OS DADOS CORRETAMENTE ---");
 
-			System.out.print("NOME COMPLETO: ");
-			String nomeCompleto = sc.nextLine().toUpperCase();
-
-			System.out.print("CPF: ");
-			String CPF = sc.nextLine();
+//			System.out.print("NOME COMPLETO: ");
+//			String nomeCompleto = sc.nextLine().toUpperCase();
+//
+//			System.out.print("CPF: ");
+//			String CPF = sc.nextLine().replaceAll("-", "");
+//			CPF = FormatarStrings.formatCPF(CPF);
 
 			System.out.print("RG: ");
-			String RG = sc.nextLine();
+			String RG = sc.nextLine().replaceAll(".", "");
+			RG = FormatarStrings.formatRG(RG);
+			
+			System.out.println(RG);
 
 			System.out.print("EMAIL: ");
 			String email = sc.nextLine().toUpperCase();
@@ -195,8 +199,6 @@ public class CadastrarFuncionario {
 				String dataNascimentoFormatado = dataNascimento.replaceAll("/", "");
 				dataNascimentoFormatado = FormatarStrings.formatDate(dataNascimentoFormatado);
 
-				System.out.println(dataNascimentoFormatado);
-
 				System.out.print("SÁLARIO BRUTO MENSAL: ");
 				double salarioBruto = sc.nextDouble();
 
@@ -212,6 +214,12 @@ public class CadastrarFuncionario {
 			}
 		} catch (InputMismatchException e) {
 			e.getMessage();
+		} catch (NumberFormatException e) {
+			System.out.println();
+			System.err.println("DIGITE APENAS NÚMEROS!! ");
+		} catch (StringIndexOutOfBoundsException e) {
+			System.err.println();
+			System.err.println("CPF/RG INVÁLIDO!! ");
 		}
 	}
 }
