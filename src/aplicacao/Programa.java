@@ -3,6 +3,8 @@ package aplicacao;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import model.services.CadastrarFuncionario;
 
 public class Programa {
@@ -12,42 +14,72 @@ public class Programa {
 		CadastrarFuncionario cadastrarFuncionario = new CadastrarFuncionario();
 
 		Scanner sc = new Scanner(System.in);
+		
+		JOptionPane.showMessageDialog(null, "teste", "teste", JOptionPane.INFORMATION_MESSAGE);
 
-		try {
+//		 MENSAGEM
+//		JOptionPane.showMessageDialog(null, "teste");
+		// MENSAGEM DE ERRO
+//		JOptionPane.showMessageDialog(null, "alert", "alert", JOptionPane.ERROR_MESSAGE);
 
-			System.out.println("1 - Cadastrar");
-			System.out.println("2 - Pesquisar");
-			System.out.println("3 - Criar uma nova conta");
-			System.out.print("Informe a opção desejada: ");
+		// ESCOLHA UM
 
-			int acaoEscolhida = sc.nextInt();
+//		int resposta = JOptionPane.showConfirmDialog(null, "choose one", "choose one", JOptionPane.YES_NO_OPTION);
+//
+//		if (resposta == 1) {
+//			System.out.println("nao");
+//		} else {
+//			System.out.println("sim");
+//		}
 
-			if (acaoEscolhida == 1) {
+//		System.out.println(JOptionPane.showConfirmDialog(null, "choose one", "choose one", JOptionPane.YES_NO_OPTION));
+//
+//		// CLIQUE OK PARA CONTINUAR
+//		Object[] options = { "OK", "CANCEL" };
+//		JOptionPane.showOptionDialog(null, "Click OK to continue", "Warning", JOptionPane.DEFAULT_OPTION,
+//				JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 
-				System.out.println();
-				System.out.println("1 - Cadastrar atendente");
-				System.out.println("2 - Cadastrar gerente");
-				System.out.println("3 - Cadastrar cliente");
-				System.out.print("Informe a opção desejada: ");
+		// RECEBER DADOS
+//		String resposta = JOptionPane.showInputDialog("Digite um valor:");
+//		System.out.println(resposta);
 
-				int opcaoDeCadastro = sc.nextInt();
+		cadastrarFuncionario.cadastrarCliente();
 
-				if (opcaoDeCadastro == 1) {
-					cadastrarFuncionario.cadastrarAtendente();
-				} else if (opcaoDeCadastro == 2) {
-					cadastrarFuncionario.cadastrarGerente();
-				} else if (opcaoDeCadastro == 3) {
-					cadastrarFuncionario.cadastrarCliente();
-				} else {
-					System.err.println("Opção inválida!");
-				}
-
-			}
-
-		} catch (InputMismatchException e) {
-			System.out.println();
-			System.err.println("ERA ESPERADO UM NÚMERO INTEIRO!");
-		}
+//		try {
+//
+//			System.out.println("1 - Cadastrar");
+//			System.out.println("2 - Pesquisar");
+//			System.out.println("3 - Criar uma nova conta");
+//			System.out.print("Informe a opção desejada: ");
+//
+//			int acaoEscolhida = sc.nextInt();
+//
+//			if (acaoEscolhida == 1) {
+//
+//				System.out.println();
+//				System.out.println("1 - Cadastrar atendente");
+//				System.out.println("2 - Cadastrar gerente");
+//				System.out.println("3 - Cadastrar cliente");
+//				System.out.print("Informe a opção desejada: ");
+//
+//				int opcaoDeCadastro = sc.nextInt();
+//
+//				if (opcaoDeCadastro == 1) {
+//					cadastrarFuncionario.cadastrarAtendente();
+//				} else if (opcaoDeCadastro == 2) {
+//					cadastrarFuncionario.cadastrarGerente();
+//				} else if (opcaoDeCadastro == 3) {
+//					cadastrarFuncionario.cadastrarCliente();
+//				} else {
+//					System.err.println("Opção inválida!");
+//				}
+//
+//			}
+//
+//		} catch (InputMismatchException e) {
+//			System.out.println();
+//			System.err.println("ERA ESPERADO UM NÚMERO INTEIRO!");
+//		}
 
 //		Atendente atendente = new Atendente();
 //

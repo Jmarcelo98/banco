@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import banco_de_dados.BdExcecao;
 import banco_de_dados.Conexao_banco_dados;
 import model.dao.AtendenteDao;
@@ -34,11 +36,11 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			int linhasAfetadas = st.executeUpdate();
 
 			if (linhasAfetadas > 0) {
-				System.out.println();
-				System.out.println("ATENDENTE CADASTRADO COM SUCESSO!! ");
+				JOptionPane.showMessageDialog(null, "ATENDENTE CADASTRADO COM SUCESSO", "CADASTRO ATENDENTE",
+						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				System.out.println();
-				System.out.println("ERRO AO CADASTRAR ATENDENTE!! ");
+				JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR O ATENDENTE", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (SQLException e) {

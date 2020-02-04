@@ -3,6 +3,8 @@ package model.services;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
@@ -156,73 +158,88 @@ public class CadastrarFuncionario {
 
 		try {
 
-			System.out.println();
-			System.out.println("--- FORNEÇA OS DADOS CORRETAMENTE ---");
+			JOptionPane.showMessageDialog(null, "FORNEÇA OS DADOS CORRETAMENTE ", "DADOS DO CLIENTE",
+					JOptionPane.WARNING_MESSAGE);
 
-			System.out.print("NOME COMPLETO: ");
-			String nomeCompleto = sc.nextLine().toUpperCase();
+			String nomeCompleto = JOptionPane.showInputDialog("NOME COMPLETO").toUpperCase();
 
-			System.out.print("CPF: ");
-			String CPF = sc.nextLine().replaceAll("-", "");
+//			System.out.print("NOME COMPLETO: ");
+//			String nomeCompleto = sc.nextLine().toUpperCase();
+
+			String CPF = JOptionPane.showInputDialog("CPF").replaceAll("-", "");
 			CPF = FormatarStrings.formatarCPF(CPF);
 
-			System.out.print("EMAIL: ");
-			String email = sc.nextLine().toUpperCase();
+//			System.out.print("CPF: ");
+//			String CPF = sc.nextLine().replaceAll("-", "");
+
+			String email = JOptionPane.showInputDialog("EMAIL").toUpperCase();
+
+//			System.out.print("EMAIL: ");
+//			String email = sc.nextLine().toUpperCase();
 
 			ValidarEmail validarEmail = new ValidarEmail(email);
 			boolean validacao = validarEmail.validarEmail();
 
 			if (validacao == false) {
 
-				System.err.println("EMAIL INVÁLIDADO");
+				JOptionPane.showMessageDialog(null, "EMAIL INVÁLIDADO", "ERROR", JOptionPane.ERROR_MESSAGE);
 
 			} else {
 
-				System.out.print("TELEFONE COM (DD): ");
-				String telefone = sc.nextLine();
+				String telefone = JOptionPane.showInputDialog("TELEFONE COM (DD)").toUpperCase();
 				String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""),
 						"(##) #####-####");
 
-				System.out.print("DATA DE NASCIMENTO (DD/MM/YYYY): ");
-				String dataNascimento = sc.nextLine();
+//				System.out.print("TELEFONE COM (DD): ");
+//				String telefone = sc.nextLine();
+
+				String dataNascimento = JOptionPane.showInputDialog("DATA DE NASCIMENTO (DD/MM/YYYY)").toUpperCase();
 				String dataNascimentoFormatado = dataNascimento.replaceAll("/", "");
 				dataNascimentoFormatado = FormatarStrings.formatarData(dataNascimentoFormatado);
 
-				System.out.print("SALÁRIO LÍQUIDO MENSAL: ");
-				double salarioLiquido = sc.nextDouble();
+//				System.out.print("DATA DE NASCIMENTO (DD/MM/YYYY): ");
+//				String dataNascimento = sc.nextLine();
 
-				System.out.println();
+				Double salarioLiquido = Double.parseDouble(JOptionPane.showInputDialog("SALÁRIO LÍQUIDO MENSAL"));
 
-				System.out.println("NOME COMPLETO: " + nomeCompleto);
-				System.out.println("CPF: " + CPF);
-				System.out.println("EMAIL: " + email);
-				System.out.println("TELEFONE: " + telefoneFomartado);
-				System.out.println("DATA DE NASCIMENTO: " + dataNascimentoFormatado);
-				System.out.println("SALÁRIO: " + salarioLiquido);
-				
-				System.out.println();
+//				System.out.print("SALÁRIO LÍQUIDO MENSAL: ");
+//				double salarioLiquido = sc.nextDouble();
 
-				System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE CLIENTE (Y/N): ");
-				char resposta = sc.next().charAt(0);
+				int resposta = JOptionPane.showConfirmDialog(null,
+						"NOME COMPLETO: " + nomeCompleto + "\n CPF: " + CPF + "\n EMAIL: " + email + "\n TELEFONE: "
+								+ telefoneFomartado + "\n DATA DE NASCIMENTO: " + dataNascimentoFormatado
+								+ "\n SALÁRIO LÍQUIDO: " + salarioLiquido
+								+ "\n \n TEM CERTEZA QUE DESEJA CADASTRAR ESSE CLIENTE? ",
+						"CONFIRMAÇÃO DE CADASTRADO", JOptionPane.YES_NO_OPTION);
 
-				if (resposta == 'y' || resposta == 'Y') {
+//				System.out.println("NOME COMPLETO: " + nomeCompleto);
+//				System.out.println("CPF: " + CPF);
+//				System.out.println("EMAIL: " + email);
+//				System.out.println("TELEFONE: " + telefoneFomartado);
+//				System.out.println("DATA DE NASCIMENTO: " + dataNascimentoFormatado);
+//				System.out.println("SALÁRIO: " + salarioLiquido);
+//
+//				System.out.println();
+//
+//				System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE CLIENTE (Y/N): ");
+
+				if (resposta == 0) {
 					cliente = new Cliente(nomeCompleto, CPF, email, telefoneFomartado, dataNascimentoFormatado,
 							salarioLiquido);
 					clienteDaoJDBC.inserir(cliente);
 				} else {
-					System.out.println();
-					System.err.println("CLIENTE NÃO CADASTRADO!! ");
+					JOptionPane.showMessageDialog(null, "CLIENTE NÃO CADASTRADO", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
 		} catch (InputMismatchException e) {
 			e.getMessage();
 		} catch (NumberFormatException e) {
-			System.out.println();
-			System.err.println("DIGITE APENAS NÚMEROS!! ");
+			JOptionPane.showMessageDialog(null, "DIGITE APENAS NÚMEROS", "ERROR", JOptionPane.ERROR_MESSAGE);
 		} catch (StringIndexOutOfBoundsException e) {
-			System.err.println();
-			System.err.println("CPF/RG INVÁLIDO!! ");
+			JOptionPane.showMessageDialog(null, "CPF INVÁLIDO", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} catch (NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "CAMPO NÃO PODE SER NULO", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
