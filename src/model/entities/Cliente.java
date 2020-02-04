@@ -1,7 +1,6 @@
 package model.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class Cliente implements Serializable {
@@ -14,25 +13,29 @@ public class Cliente implements Serializable {
 	private String CPF;
 	private String email;
 	private String telefone;
-	private Date dataNascimento;
+	private String dataNascimento;
+	private double salarioLiquido;
 
 	public Cliente() {
 
 	}
 
-	public Cliente(String nomeCompleto, String cPF, String email, String telefone, Date dataNascimento) {
+	public Cliente(String nomeCompleto, String cPF, String email, String telefone, String dataNascimento,
+			double salarioLiquido) {
+		super();
 		this.nomeCompleto = nomeCompleto;
 		CPF = cPF;
 		this.email = email;
 		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
+		this.salarioLiquido = salarioLiquido;
 	}
 
-	public String getNome_completo() {
+	public String getNomeCompleto() {
 		return nomeCompleto;
 	}
 
-	public void setNome_completo(String nomeCompleto) {
+	public void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
 	}
 
@@ -60,12 +63,20 @@ public class Cliente implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public Date getData_Nascimento() {
+	public String getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setData_Nascimento(Date dataNascimento) {
+	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public double getSalarioLiquido() {
+		return salarioLiquido;
+	}
+
+	public void setSalarioLiquido(double salarioLiquido) {
+		this.salarioLiquido = salarioLiquido;
 	}
 
 }

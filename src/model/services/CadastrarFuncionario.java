@@ -1,8 +1,5 @@
 package model.services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -157,25 +154,17 @@ public class CadastrarFuncionario {
 
 	public void cadastrarCliente() {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
 		try {
 
 			System.out.println();
 			System.out.println("--- FORNEÇA OS DADOS CORRETAMENTE ---");
 
-//			System.out.print("NOME COMPLETO: ");
-//			String nomeCompleto = sc.nextLine().toUpperCase();
-//
-//			System.out.print("CPF: ");
-//			String CPF = sc.nextLine().replaceAll("-", "");
-//			CPF = FormatarStrings.formatCPF(CPF);
+			System.out.print("NOME COMPLETO: ");
+			String nomeCompleto = sc.nextLine().toUpperCase();
 
-			System.out.print("RG: ");
-			String RG = sc.nextLine().replaceAll(".", "");
-			RG = FormatarStrings.formatRG(RG);
-			
-			System.out.println(RG);
+			System.out.print("CPF: ");
+			String CPF = sc.nextLine().replaceAll("-", "");
+			CPF = FormatarStrings.formatarCPF(CPF);
 
 			System.out.print("EMAIL: ");
 			String email = sc.nextLine().toUpperCase();
@@ -197,18 +186,32 @@ public class CadastrarFuncionario {
 				System.out.print("DATA DE NASCIMENTO (DD/MM/YYYY): ");
 				String dataNascimento = sc.nextLine();
 				String dataNascimentoFormatado = dataNascimento.replaceAll("/", "");
-				dataNascimentoFormatado = FormatarStrings.formatDate(dataNascimentoFormatado);
+				dataNascimentoFormatado = FormatarStrings.formatarData(dataNascimentoFormatado);
 
-				System.out.print("SÁLARIO BRUTO MENSAL: ");
-				double salarioBruto = sc.nextDouble();
+				System.out.print("SALÁRIO LÍQUIDO MENSAL: ");
+				double salarioLiquido = sc.nextDouble();
 
 				System.out.println();
 
-				System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE (Y/N): ");
+				System.out.println("NOME COMPLETO: " + nomeCompleto);
+				System.out.println("CPF: " + CPF);
+				System.out.println("EMAIL: " + email);
+				System.out.println("TELEFONE: " + telefoneFomartado);
+				System.out.println("DATA DE NASCIMENTO: " + dataNascimentoFormatado);
+				System.out.println("SALÁRIO: " + salarioLiquido);
+				
+				System.out.println();
+
+				System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE CLIENTE (Y/N): ");
 				char resposta = sc.next().charAt(0);
 
 				if (resposta == 'y' || resposta == 'Y') {
-
+					cliente = new Cliente(nomeCompleto, CPF, email, telefoneFomartado, dataNascimentoFormatado,
+							salarioLiquido);
+					clienteDaoJDBC.inserir(cliente);
+				} else {
+					System.out.println();
+					System.err.println("CLIENTE NÃO CADASTRADO!! ");
 				}
 
 			}

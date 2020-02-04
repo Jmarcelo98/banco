@@ -33,14 +33,14 @@ public class GerenteDaoJDBC implements GerenteDao {
 			st.setString(4, gerenteObj.getTelefone());
 			st.setInt(5, gerenteObj.getSetorResponsavel());
 
-			int linhasAFetadas = st.executeUpdate();
+			int linhasAfetadas = st.executeUpdate();
 
-			if (linhasAFetadas > 0) {
+			if (linhasAfetadas > 0) {
 				System.out.println();
 				System.out.println("GERENTE CADASTRADO COM SUCESSO!!");
 			} else {
 				System.out.println();
-				System.err.println("ERRO AO CADASTRAR GERENTE!!");
+				System.err.println("ERRO AO CADASTRAR O GERENTE!!");
 			}
 
 		} catch (SQLException e) {
