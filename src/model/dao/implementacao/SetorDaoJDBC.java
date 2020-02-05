@@ -84,6 +84,8 @@ public class SetorDaoJDBC implements SetorDao {
 	public int idSetor() {
 
 		try {
+			
+			conexao = null;
 
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
