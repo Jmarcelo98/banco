@@ -96,61 +96,71 @@ public class CadastrarFuncionario {
 
 		try {
 
-			System.out.println();
-			System.out.println("--- FORNEÇA OS DADOS CORRETAMENTE ---");
+			JOptionPane.showMessageDialog(null, "FORNEÇA OS DADOS CORRETAMENTE ", "DADOS DO GERENTE",
+					JOptionPane.WARNING_MESSAGE);
 
-			System.out.print("NOME COMPLETO: ");
-			String nomeCompleto = sc.nextLine().toUpperCase();
+			String nomeCompleto = JOptionPane.showInputDialog("NOME COMPLETO").toUpperCase();
 
-			String matricula = atendente.gerarMatriculaAtendente().toUpperCase();
+			String matricula = gerente.gerarMatriculaGerente().toUpperCase();
 
-			System.out.print("EMAIL: ");
-			String email = sc.nextLine().toUpperCase();
+			String email = JOptionPane.showInputDialog("EMAIL").toUpperCase();
 
 			ValidarEmail validarEmail = new ValidarEmail(email);
 			boolean validacao = validarEmail.validarEmail();
 
 			if (validacao == false) {
 
-				System.err.println("EMAIL INVÁLIDADO");
+				JOptionPane.showMessageDialog(null, "EMAIL INVÁLIDADO", "ERROR", JOptionPane.ERROR_MESSAGE);
 
 			} else {
 
-				System.out.print("TELEFONE COM (DD): ");
-				String telefone = sc.nextLine();
-				String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""),
-						"(##) #####-####");
+				String telefone = JOptionPane.showInputDialog("TELEFONE COM (DD)").toUpperCase();
+				String telefoneFomartado = FormatarStrings
+						.formatString(telefone.replaceAll(" ", "").replaceAll("() -", ""), "(##) #####-####");
 
-				System.out.println();
+				int setorResponsavel = setorDaoJDBC.idSetor();
 
-				setorDaoJDBC.procurarTodos();
-				System.out.println();
-				System.out.print("INFORME O \"ID\" DE QUAL SETOR O GERENTE É RESPONSÁVEL: ");
-				int setorResponsavel = sc.nextInt();
+				String setor = null;
 
-				System.out.println();
-				System.out.println("NOME COMPLETO: " + nomeCompleto);
-				System.out.println("MATRICULA: " + matricula);
-				System.out.println("EMAIL: " + email);
-				System.out.println("TELEFONE: " + telefone);
-				System.out.println("SETOR RESPONSÁVEL: " + setorDaoJDBC.mostrarSetorDeAcordoComId(setorResponsavel));
+				if (setorResponsavel == 1) {
+					setor = "ADMINISTRATIVO";
+				} else if (setorResponsavel == 2) {
+					setor = "COMERCIAL";
+				} else if (setorResponsavel == 3) {
+					setor = "FINANCEIRO";
+				} else if (setorResponsavel == 4) {
+					setor = "OPERACIONAL";
+				} else if (setorResponsavel == 5) {
+					setor = "RECURSOS HUMANOS";
+				}
 
-				System.out.println();
+//				System.out.println();
+//				System.out.print("INFORME O \"ID\" DE QUAL SETOR O GERENTE É RESPONSÁVEL: ");
+				// int setorResponsavel = ;
 
-				System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE (Y/N): ");
-				char resposta = sc.next().charAt(0);
+				int resposta = JOptionPane.showConfirmDialog(null,
+						"NOME COMPLETO: " + nomeCompleto + "\nMATRICULA: " + matricula + "\nEMAIL: " + email
+								+ "\nTELEFONE: " + telefoneFomartado + "\nSETOR RESPONSÁVEL: " + setor
+								+ "\n\nTEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE? ",
+						"CONFIRMAÇÃO DE CADASTRADO", JOptionPane.YES_NO_OPTION);
 
-				if (resposta == 'y' || resposta == 'Y') {
+				if (resposta == 0) {
 					gerente = new Gerente(nomeCompleto, matricula, email, telefoneFomartado, setorResponsavel);
 					gerenteDaoJDBC.inserir(gerente);
 				} else {
-					System.out.println();
-					System.out.println("GERENTE NÃO CADASTRADO!! ");
+					JOptionPane.showMessageDialog(null, "CLIENTE NÃO CADASTRADO", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
 		} catch (InputMismatchException e) {
 			e.getMessage();
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "DIGITE APENAS NÚMEROS", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} catch (StringIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(null, "CPF INVÁLIDO", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} catch (NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "CAMPO NÃO PODE SER NULO", "ERROR", JOptionPane.ERROR_MESSAGE);
+
 		}
 	}
 
@@ -163,19 +173,10 @@ public class CadastrarFuncionario {
 
 			String nomeCompleto = JOptionPane.showInputDialog("NOME COMPLETO").toUpperCase();
 
-//			System.out.print("NOME COMPLETO: ");
-//			String nomeCompleto = sc.nextLine().toUpperCase();
-
 			String CPF = JOptionPane.showInputDialog("CPF").replaceAll("-", "");
 			CPF = FormatarStrings.formatarCPF(CPF);
 
-//			System.out.print("CPF: ");
-//			String CPF = sc.nextLine().replaceAll("-", "");
-
 			String email = JOptionPane.showInputDialog("EMAIL").toUpperCase();
-
-//			System.out.print("EMAIL: ");
-//			String email = sc.nextLine().toUpperCase();
 
 			ValidarEmail validarEmail = new ValidarEmail(email);
 			boolean validacao = validarEmail.validarEmail();
@@ -190,20 +191,11 @@ public class CadastrarFuncionario {
 				String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""),
 						"(##) #####-####");
 
-//				System.out.print("TELEFONE COM (DD): ");
-//				String telefone = sc.nextLine();
-
 				String dataNascimento = JOptionPane.showInputDialog("DATA DE NASCIMENTO (DD/MM/YYYY)").toUpperCase();
 				String dataNascimentoFormatado = dataNascimento.replaceAll("/", "");
 				dataNascimentoFormatado = FormatarStrings.formatarData(dataNascimentoFormatado);
 
-//				System.out.print("DATA DE NASCIMENTO (DD/MM/YYYY): ");
-//				String dataNascimento = sc.nextLine();
-
 				Double salarioLiquido = Double.parseDouble(JOptionPane.showInputDialog("SALÁRIO LÍQUIDO MENSAL"));
-
-//				System.out.print("SALÁRIO LÍQUIDO MENSAL: ");
-//				double salarioLiquido = sc.nextDouble();
 
 				int resposta = JOptionPane.showConfirmDialog(null,
 						"NOME COMPLETO: " + nomeCompleto + "\n CPF: " + CPF + "\n EMAIL: " + email + "\n TELEFONE: "
@@ -211,17 +203,6 @@ public class CadastrarFuncionario {
 								+ "\n SALÁRIO LÍQUIDO: " + salarioLiquido
 								+ "\n \n TEM CERTEZA QUE DESEJA CADASTRAR ESSE CLIENTE? ",
 						"CONFIRMAÇÃO DE CADASTRADO", JOptionPane.YES_NO_OPTION);
-
-//				System.out.println("NOME COMPLETO: " + nomeCompleto);
-//				System.out.println("CPF: " + CPF);
-//				System.out.println("EMAIL: " + email);
-//				System.out.println("TELEFONE: " + telefoneFomartado);
-//				System.out.println("DATA DE NASCIMENTO: " + dataNascimentoFormatado);
-//				System.out.println("SALÁRIO: " + salarioLiquido);
-//
-//				System.out.println();
-//
-//				System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE CLIENTE (Y/N): ");
 
 				if (resposta == 0) {
 					cliente = new Cliente(nomeCompleto, CPF, email, telefoneFomartado, dataNascimentoFormatado,

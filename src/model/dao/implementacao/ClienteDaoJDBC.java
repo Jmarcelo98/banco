@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import banco_de_dados.BdExcecao;
+import javax.swing.JOptionPane;
+
 import banco_de_dados.Conexao_banco_dados;
 import model.dao.ClienteDao;
 import model.entities.Cliente;
@@ -37,15 +38,14 @@ public class ClienteDaoJDBC implements ClienteDao {
 			int linhasAfetadas = st.executeUpdate();
 
 			if (linhasAfetadas > 0) {
-				System.out.println();
-				System.out.println("CLIENTE CADASTRADO COM SUCESSO!!");
+				JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO COM SUCESSO", "CADASTRO CLIENTE",
+						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				System.out.println();
-				System.err.println("ERRO AO CADASTRAR O CLIENTE!!");
+				JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR O CLIENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (SQLException e) {
-			throw new BdExcecao(e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			Conexao_banco_dados.fecharStatement(st);
 			Conexao_banco_dados.fecharConexaoComoBanco();

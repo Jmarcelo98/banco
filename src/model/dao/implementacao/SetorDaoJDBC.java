@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import banco_de_dados.BdExcecao;
 import banco_de_dados.Conexao_banco_dados;
 import model.dao.SetorDao;
@@ -51,16 +53,20 @@ public class SetorDaoJDBC implements SetorDao {
 
 			List<Setor> lista = new ArrayList<>();
 
-			st = conexao.prepareStatement("select * from setor");
+			st = conexao.prepareStatement("select id, setor from setor");
 
 			rs = st.executeQuery();
+
+			List<String> listando = new ArrayList<>();
 
 			while (rs.next()) {
 
 				int idSetor = rs.getInt("ID");
 				String nomeSetor = rs.getString("SETOR");
 
-				System.out.println("ID: " + idSetor + "  SETOR: " + nomeSetor);
+				listando.add("ID: " + idSetor + " | SETOR: " + nomeSetor + "\n");
+
+				System.out.println("ID: " + idSetor + " SETOR: " + nomeSetor);
 			}
 
 			return lista;
@@ -70,6 +76,52 @@ public class SetorDaoJDBC implements SetorDao {
 		} finally {
 			Conexao_banco_dados.fecharResultSet(rs);
 			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
+
+	}
+
+	public int idSetor() {
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement("select id, setor from setor");
+
+			rs = st.executeQuery();
+
+			List<String> listando = new ArrayList<>();
+
+			while (rs.next()) {
+
+				int idSetor = rs.getInt("ID");
+				String nomeSetor = rs.getString("SETOR");
+
+				listando.add("ID: " + idSetor + " | SETOR: " + nomeSetor + "\n");
+
+				// System.out.println("ID: " + idSetor + " SETOR: " + nomeSetor);
+			}
+
+			// PARA O JOPptionP
+			String admin = listando.get(0);
+			String comer = listando.get(1);
+			String finan = listando.get(2);
+			String oper = listando.get(3);
+			String rh = listando.get(4);
+
+			int idSetor = Integer.parseInt(
+					JOptionPane.showInputDialog(admin + "\n" + comer + "\n" + finan + "\n" + oper + "\n" + rh + "\n"));
+
+			return idSetor;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharConexaoComoBanco();
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+
 		}
 
 	}
@@ -99,6 +151,7 @@ public class SetorDaoJDBC implements SetorDao {
 		} finally {
 			Conexao_banco_dados.fecharResultSet(rs);
 			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
 		}
 
 	}

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import banco_de_dados.BdExcecao;
 import banco_de_dados.Conexao_banco_dados;
 import model.dao.GerenteDao;
@@ -20,12 +22,12 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 	@Override
 	public void inserir(Gerente gerenteObj) {
+
 		try {
 
-			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+			//conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
-			st = conexao.prepareStatement("INSERT INTO gerente "
-					+ "(NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR_RESPONSAVEL) values (?,?,?,?,?)");
+			st = conexao.prepareStatement("INSERT into gerente (NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR_RESPONSAVEL) values (?,?,?,?,?)");
 
 			st.setString(1, gerenteObj.getNome_completo());
 			st.setString(2, gerenteObj.getMatricula());
@@ -36,11 +38,10 @@ public class GerenteDaoJDBC implements GerenteDao {
 			int linhasAfetadas = st.executeUpdate();
 
 			if (linhasAfetadas > 0) {
-				System.out.println();
-				System.out.println("GERENTE CADASTRADO COM SUCESSO!!");
+				JOptionPane.showMessageDialog(null, "GERENTE CADASTRADO COM SUCESSO", "CADASTRO GERENTE",
+						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				System.out.println();
-				System.err.println("ERRO AO CADASTRAR O GERENTE!!");
+				JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR O GERENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (SQLException e) {

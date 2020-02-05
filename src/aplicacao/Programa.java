@@ -14,8 +14,6 @@ public class Programa {
 		CadastrarFuncionario cadastrarFuncionario = new CadastrarFuncionario();
 
 		Scanner sc = new Scanner(System.in);
-		
-		JOptionPane.showMessageDialog(null, "teste", "teste", JOptionPane.INFORMATION_MESSAGE);
 
 //		 MENSAGEM
 //		JOptionPane.showMessageDialog(null, "teste");
@@ -43,7 +41,7 @@ public class Programa {
 //		String resposta = JOptionPane.showInputDialog("Digite um valor:");
 //		System.out.println(resposta);
 
-		cadastrarFuncionario.cadastrarCliente();
+		cadastrarFuncionario.cadastrarGerente();
 
 //		try {
 //
