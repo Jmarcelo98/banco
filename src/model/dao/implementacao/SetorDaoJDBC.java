@@ -84,7 +84,7 @@ public class SetorDaoJDBC implements SetorDao {
 	public int idSetor() {
 
 		try {
-			
+
 			conexao = null;
 
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
@@ -120,9 +120,9 @@ public class SetorDaoJDBC implements SetorDao {
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
 		} finally {
-			Conexao_banco_dados.fecharConexaoComoBanco();
 			Conexao_banco_dados.fecharResultSet(rs);
 			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
 
 		}
 

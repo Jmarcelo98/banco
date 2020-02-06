@@ -25,9 +25,10 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 		try {
 
-			//conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
-			st = conexao.prepareStatement("INSERT into gerente (NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR_RESPONSAVEL) values (?,?,?,?,?)");
+			st = conexao.prepareStatement(
+					"INSERT into gerente (NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR_RESPONSAVEL) values (?,?,?,?,?)");
 
 			st.setString(1, gerenteObj.getNome_completo());
 			st.setString(2, gerenteObj.getMatricula());

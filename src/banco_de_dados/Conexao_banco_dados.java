@@ -17,7 +17,10 @@ public class Conexao_banco_dados {
 	// CONECTAR COM O BANCO DE DADOS
 	public static Connection abrirConexaoComOBanco() {
 
+		conexao = null;
+
 		if (conexao == null) {
+
 			try {
 
 				// PEGANDO AS PROPRIEDADES DO OUTRO METODO
