@@ -18,6 +18,13 @@ public class Gerente implements Serializable {
 	public Gerente() {
 	}
 
+	public Gerente(String email, String telefone, Integer setorResponsavel) {
+		super();
+		this.email = email;
+		this.telefone = telefone;
+		this.setorResponsavel = setorResponsavel;
+	}
+
 	public Gerente(String nomeCompleto, String matricula, String email, String telefone, Integer setorResponsavel) {
 		super();
 		this.nomeCompleto = nomeCompleto;

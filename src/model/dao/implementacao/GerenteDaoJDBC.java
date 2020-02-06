@@ -56,7 +56,31 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 	@Override
 	public void atualizar(Gerente gerenteObj) {
-		// TODO Auto-generated method stub
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement(
+					"update gerente set EMAIL, TELEFONE, SETOR_RESPONSAVEL  = (?,?,?) where matricula = ?");
+
+			st.setString(1, gerenteObj.getEmail());
+			st.setString(2, gerenteObj.getTelefone());
+			st.setInt(3, gerenteObj.getSetorResponsavel());
+
+			int linhasAfetadas = st.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				JOptionPane.showMessageDialog(null, "CADASTRADO ALTERADO COM SUCESSO", "CADASTRO GERENTE",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "ERRO AO ATUALIZAR DADOS DO GERENTE", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		}
 
 	}
 

@@ -13,7 +13,7 @@ import model.entities.Atendente;
 import model.entities.Cliente;
 import model.entities.Gerente;
 
-public class CadastrarFuncionario {
+public class Cadastramento {
 
 	Scanner sc = new Scanner(System.in);
 

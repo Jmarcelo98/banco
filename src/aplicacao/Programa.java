@@ -5,13 +5,13 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import model.services.CadastrarFuncionario;
+import model.services.Cadastramento;
 
 public class Programa {
 
 	public static void main(String[] args) {
 
-		CadastrarFuncionario cadastrarFuncionario = new CadastrarFuncionario();
+		Cadastramento cadastrarFuncionario = new Cadastramento();
 
 		Scanner sc = new Scanner(System.in);
 
@@ -63,11 +63,11 @@ public class Programa {
 //				int opcaoDeCadastro = sc.nextInt();
 //
 //				if (opcaoDeCadastro == 1) {
-//					cadastrarFuncionario.cadastrarAtendente();
+//					Cadastramento.cadastrarAtendente();
 //				} else if (opcaoDeCadastro == 2) {
-//					cadastrarFuncionario.cadastrarGerente();
+//					Cadastramento.cadastrarGerente();
 //				} else if (opcaoDeCadastro == 3) {
-//					cadastrarFuncionario.cadastrarCliente();
+//					Cadastramento.cadastrarCliente();
 //				} else {
 //					System.err.println("Opção inválida!");
 //				}
