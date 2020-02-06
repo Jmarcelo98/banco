@@ -32,58 +32,43 @@ public class CadastrarFuncionario {
 
 		try {
 
-			System.out.println();
-			System.out.println("--- FORNEÇA OS DADOS CORRETAMENTE ---");
+			JOptionPane.showMessageDialog(null, "FORNEÇA OS DADOS CORRETAMENTE ", "DADOS DO ATENDENTE",
+					JOptionPane.WARNING_MESSAGE);
 
-			System.out.print("NOME COMPLETO: ");
-			String nomeCompleto = sc.nextLine().toUpperCase();
+			String nomeCompleto = JOptionPane.showInputDialog("NOME COMPLETO").toUpperCase();
 
 			String matricula = atendente.gerarMatriculaAtendente().toUpperCase();
 
-			System.out.print("EMAIL: ");
-			String email = sc.nextLine().toUpperCase();
+			String email = JOptionPane.showInputDialog("EMAIL").toUpperCase();
 
 			ValidarEmail validarEmail = new ValidarEmail(email);
 			boolean validacao = validarEmail.validarEmail();
 
 			if (validacao == false) {
 
-				System.err.println("EMAIL INVÁLIDADO");
+				JOptionPane.showMessageDialog(null, "EMAIL INVÁLIDADO", "ERROR", JOptionPane.ERROR_MESSAGE);
 
 			} else {
 
-				System.out.print("TELEFONE COM (DD): ");
-				String telefone = sc.nextLine();
-				String telefoneFomartado = FormatarStrings.formatString(telefone.replaceAll(" ", ""),
-						"(##) #####-####");
+				String telefone = JOptionPane.showInputDialog("TELEFONE COM (DD)").toUpperCase();
+				String telefoneFomartado = FormatarStrings
+						.formatString(telefone.replaceAll(" ", "").replaceAll("() -", ""), "(##) #####-####");
 
-				System.out.println();
+				String matriculaGerente = gerenteDaoJDBC.gerenteMatricula();
 
-				gerenteDaoJDBC.retornarGerenteNome_Matricula();
-				System.out.println();
-				System.out.print("INFORME O VALOR DA \"MATRICULA\" DO GERENTE RESPONSÁVEL: ");
-				String valorMatricula = sc.nextLine().toUpperCase();
+				int resposta = JOptionPane.showConfirmDialog(null,
+						"NOME COMPLETO: " + nomeCompleto + "\nMATRICULA: " + matricula + "\nEMAIL: " + email
+								+ "\nTELEFONE: " + telefoneFomartado + "\nSETOR RESPONSÁVEL: " + matriculaGerente
+								+ "\n\nTEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE? ",
+						"CONFIRMAÇÃO DE CADASTRADO", JOptionPane.YES_NO_OPTION);
 
-				System.out.println();
-				System.out.println("NOME COMPLETO: " + nomeCompleto);
-				System.out.println("MATRICULA: " + matricula);
-				System.out.println("EMAIL: " + email);
-				System.out.println("TELEFONE: " + telefone);
-				System.out.println("GERENTE RESPONSÁVEL: " + gerenteDaoJDBC.nomeMatriculaConfirmacao(valorMatricula));
-
-				System.out.println();
-
-				System.out.print("TEM CERTEZA QUE DESEJA CADASTRAR ESSE ATENDENTE (Y/N): ");
-				char resposta = sc.next().charAt(0);
-
-				if (resposta == 'y' || resposta == 'Y') {
-					atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, valorMatricula);
+				if (resposta == 0) {
+					atendente = new Atendente(nomeCompleto, matricula, email, telefoneFomartado, matriculaGerente);
 					atendenteDaoJDBC.inserir(atendente);
-
 				} else {
-					System.out.println();
-					System.out.println("ATENDENTE NÃO CADASTRADO!! ");
+					JOptionPane.showMessageDialog(null, "ATENDENTE NÃO CADASTRADO", "ERROR", JOptionPane.ERROR_MESSAGE);
 				}
+
 			}
 
 		} catch (InputMismatchException e) {

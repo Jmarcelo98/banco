@@ -41,8 +41,8 @@ public class Programa {
 //		String resposta = JOptionPane.showInputDialog("Digite um valor:");
 //		System.out.println(resposta);
 
-		cadastrarFuncionario.cadastrarGerente();
-
+		cadastrarFuncionario.cadastrarAtendente();
+		
 //		try {
 //
 //			System.out.println("1 - Cadastrar");

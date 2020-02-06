@@ -147,6 +147,48 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 	}
 
+	public String gerenteMatricula() {
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement("select NOME_COMPLETO, MATRICULA from gerente");
+
+			rs = st.executeQuery();
+
+			List<String> listaGerente = new ArrayList<>();
+
+			while (rs.next()) {
+
+				String matriculaGerente = rs.getString("MATRICULA");
+				String nomeGerente = rs.getString("NOME_COMPLETO");
+
+				listaGerente.add("MATRÍCULA: " + matriculaGerente + " | NOME: " + nomeGerente + "\n");
+
+			}
+
+			String gerente = "";
+
+			for (int i = 0; i < listaGerente.size(); i++) {
+
+				gerente = gerente + listaGerente.get(i) + "\n";
+
+			}
+
+			String matriculaEscolhida = JOptionPane.showInputDialog(gerente);
+
+			return matriculaEscolhida;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+		}
+
+	}
+
 	public String nomeMatriculaConfirmacao(String Matricula) {
 
 		try {

@@ -106,14 +106,16 @@ public class SetorDaoJDBC implements SetorDao {
 			}
 
 			// PARA O JOPptionP
-			String admin = listando.get(0);
-			String comer = listando.get(1);
-			String finan = listando.get(2);
-			String oper = listando.get(3);
-			String rh = listando.get(4);
 
-			int idSetor = Integer.parseInt(
-					JOptionPane.showInputDialog(admin + "\n" + comer + "\n" + finan + "\n" + oper + "\n" + rh + "\n"));
+			String setor = "";
+
+			for (int i = 0; i < listando.size(); i++) {
+
+				setor = setor + listando.get(i) + "\n";
+
+			}
+
+			int idSetor = Integer.parseInt(JOptionPane.showInputDialog(setor));
 
 			return idSetor;
 
