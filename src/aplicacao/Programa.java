@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import model.dao.implementacao.GerenteDaoJDBC;
+import model.services.Atualizacao;
 import model.services.Cadastramento;
 
 public class Programa {
@@ -12,14 +14,37 @@ public class Programa {
 	public static void main(String[] args) {
 
 		Cadastramento cadastrarFuncionario = new Cadastramento();
+		Atualizacao atualizarDados = new Atualizacao();
+		GerenteDaoJDBC gerenteJDBC = new GerenteDaoJDBC();
 
 		Scanner sc = new Scanner(System.in);
+		
 
 //		 MENSAGEM
 //		JOptionPane.showMessageDialog(null, "teste");
 		// MENSAGEM DE ERRO
 //		JOptionPane.showMessageDialog(null, "alert", "alert", JOptionPane.ERROR_MESSAGE);
+		
+		
+		
 
+//		Object[] possibleValues = { "EMAIL", "TELEFONE", "SETOR RESPONSÁVEL " };
+//		Object selectedValue = JOptionPane.showInputDialog(null, "ESCOLHA O DADO QUE SEJA ATUALIZAR",
+//				"ATUALIZAR DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
+//		
+//		if (selectedValue == possibleValues[0]) {
+//			System.out.println("0");
+//		}  
+//		else if (selectedValue == possibleValues[1]) {
+//			System.out.println("1");
+//		} 
+//		else if (selectedValue == possibleValues[2]) {
+//			System.out.println("2");
+//		} 
+
+		
+		
+		
 		// ESCOLHA UM
 
 //		int resposta = JOptionPane.showConfirmDialog(null, "choose one", "choose one", JOptionPane.YES_NO_OPTION);
@@ -41,8 +66,8 @@ public class Programa {
 //		String resposta = JOptionPane.showInputDialog("Digite um valor:");
 //		System.out.println(resposta);
 
-		cadastrarFuncionario.cadastrarAtendente();
-		
+		atualizarDados.atualizarGerente();
+
 //		try {
 //
 //			System.out.println("1 - Cadastrar");

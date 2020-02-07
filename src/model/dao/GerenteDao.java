@@ -8,7 +8,7 @@ public interface GerenteDao {
 
 	void inserir(Gerente gerenteObj);
 
-	void atualizar(Gerente gerenteObj);
+	void atualizar(Gerente gerenteObj, String Matricula);
 
 	void deletarPelaMatricula(String Matricula);
 
@@ -16,7 +16,7 @@ public interface GerenteDao {
 	Gerente procurarPelaMatricula(String Matricula);
 
 	List<Gerente> procurarTodos();
-	
+
 	List<Gerente> retornarGerenteNome_Matricula();
 
 }

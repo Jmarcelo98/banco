@@ -25,6 +25,14 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 		try {
 
+			if (gerenteObj.getEmail() == null) {
+				System.out.println("email nulo");
+			} else if (gerenteObj.getTelefone() == null) {
+				System.out.println("telefone nuloe");
+			} else if (gerenteObj.getSetorResponsavel() == null) {
+				System.out.println("setor nulo");
+			}
+
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
 			st = conexao.prepareStatement(
@@ -55,18 +63,38 @@ public class GerenteDaoJDBC implements GerenteDao {
 	}
 
 	@Override
-	public void atualizar(Gerente gerenteObj) {
+	public void atualizar(Gerente gerenteObj, String Matricula) {
 
 		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
 		try {
 
-			st = conexao.prepareStatement(
-					"update gerente set EMAIL, TELEFONE, SETOR_RESPONSAVEL  = (?,?,?) where matricula = ?");
+			if (gerenteObj.getEmail() != null) {
 
-			st.setString(1, gerenteObj.getEmail());
-			st.setString(2, gerenteObj.getTelefone());
-			st.setInt(3, gerenteObj.getSetorResponsavel());
+				st = conexao.prepareStatement("update gerente set EMAIL = (?) where matricula = ?");
+				st.setString(1, gerenteObj.getEmail());
+				st.setString(2, Matricula);
+
+			} else if (gerenteObj.getTelefone() != null) {
+
+				st = conexao.prepareStatement("update gerente set TELEFONE = (?) where matricula = ?");
+				st.setString(1, gerenteObj.getTelefone());
+				st.setString(2, Matricula);
+
+			} else if (gerenteObj.getSetorResponsavel() != null) {
+
+				st = conexao.prepareStatement("update gerente set SETOR_RESPONSAVEL = (?) where matricula = ?");
+				st.setInt(1, gerenteObj.getSetorResponsavel());
+				st.setString(2, Matricula);
+
+			}
+//
+//			st = conexao.prepareStatement(
+//					"update gerente set EMAIL, TELEFONE, SETOR_RESPONSAVEL  = (?,?,?) where matricula = ?");
+//
+//			st.setString(1, gerenteObj.getEmail());
+//			st.setString(2, gerenteObj.getTelefone());
+//			st.setInt(3, gerenteObj.getSetorResponsavel());
 
 			int linhasAfetadas = st.executeUpdate();
 
@@ -244,4 +272,44 @@ public class GerenteDaoJDBC implements GerenteDao {
 			Conexao_banco_dados.fecharStatement(st);
 		}
 	}
+
+	public String emailTelefoneSetor(String Matricula) {
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement(
+					"select NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR from GERENTE,SETOR where SETOR_RESPONSAVEL = ID AND MATRICULA = ?");
+
+			st.setString(1, Matricula);
+
+			rs = st.executeQuery();
+
+			String retorno = "";
+
+			if (rs.next()) {
+
+				System.out.println();
+
+				String email = rs.getString("EMAIL");
+				String telefone = rs.getString("TELEFONE");
+				String setorRespon = rs.getString("SETOR");
+
+				retorno = "EMAIL: " + email + "\nTELEFONE: " + telefone + "\nSETOR RESPONSÁVEL: " + setorRespon;
+
+			}
+
+			return retorno;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
+
+	}
+
 }

@@ -52,7 +52,7 @@ public class Cadastramento {
 
 				String telefone = JOptionPane.showInputDialog("TELEFONE COM (DD)").toUpperCase();
 				String telefoneFomartado = FormatarStrings
-						.formatString(telefone.replaceAll(" ", "").replaceAll("() -", ""), "(##) #####-####");
+						.formatString(telefone.replaceAll(" ", "").replaceAll("()", ""), "(##) #####-####").replaceAll("-", "");
 
 				String matriculaGerente = gerenteDaoJDBC.gerenteMatricula();
 

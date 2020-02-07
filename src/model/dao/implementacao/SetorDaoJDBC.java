@@ -115,7 +115,7 @@ public class SetorDaoJDBC implements SetorDao {
 
 			}
 
-			int idSetor = Integer.parseInt(JOptionPane.showInputDialog(setor));
+			int idSetor = Integer.parseInt(JOptionPane.showInputDialog(setor + "\nSELECIONE O SETOR"));
 
 			return idSetor;
 
