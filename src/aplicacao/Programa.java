@@ -66,7 +66,7 @@ public class Programa {
 //		String resposta = JOptionPane.showInputDialog("Digite um valor:");
 //		System.out.println(resposta);
 
-		atualizarDados.atualizarGerente();
+cadastrarFuncionario.cadastrarAtendente();
 
 //		try {
 //

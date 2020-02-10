@@ -8,7 +8,7 @@ public interface AtendenteDao {
 
 	void inserir(Atendente atendenteObj);
 
-	void atualizar(Atendente atendenteObj);
+	void atualizar(Atendente atendenteObj, String Matricula);
 
 	void deletarPelaMatricula(String Matricula);
 

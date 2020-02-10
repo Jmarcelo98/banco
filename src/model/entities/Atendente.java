@@ -13,14 +13,21 @@ public class Atendente implements Serializable {
 	private String matricula;
 	private String email;
 	private String telefone;
-	private String gerenteResponsavel;
+	private Integer gerenteResponsavel;
 
 	Random random = new Random();
 
 	public Atendente() {
 	}
 
-	public Atendente(String nomeCompleto, String matricula, String email, String telefone, String gerenteResponsavel) {
+	public Atendente(String email, String telefone, Integer gerenteResponsavel) {
+		super();
+		this.email = email;
+		this.telefone = telefone;
+		this.gerenteResponsavel = gerenteResponsavel;
+	}
+
+	public Atendente(String nomeCompleto, String matricula, String email, String telefone, Integer gerenteResponsavel) {
 		this.nomeCompleto = nomeCompleto;
 		this.matricula = matricula;
 		this.email = email;
@@ -60,11 +67,11 @@ public class Atendente implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public String getGerente_responsavel() {
+	public Integer getGerente_responsavel() {
 		return gerenteResponsavel;
 	}
 
-	public void setGerente_responsavel(String gerenteResponsavel) {
+	public void setGerente_responsavel(Integer gerenteResponsavel) {
 		this.gerenteResponsavel = gerenteResponsavel;
 	}
 
@@ -80,7 +87,7 @@ public class Atendente implements Serializable {
 				inicioMatriculaAtendente = inicioMatriculaAtendente + matricula;
 			}
 		} else {
-			
+
 			for (int i = 0; i < 5; i++) {
 
 				Integer matricula = random.nextInt(9);

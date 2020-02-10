@@ -52,14 +52,17 @@ public class Cadastramento {
 
 				String telefone = JOptionPane.showInputDialog("TELEFONE COM (DD)").toUpperCase();
 				String telefoneFomartado = FormatarStrings
-						.formatString(telefone.replaceAll(" ", "").replaceAll("()", ""), "(##) #####-####").replaceAll("-", "");
+						.formatString(telefone.replaceAll(" ", "").replaceAll("()", ""), "(##) #####-####")
+						.replaceAll("-", "");
 
-				String matriculaGerente = gerenteDaoJDBC.gerenteMatricula();
+				int matriculaGerente = gerenteDaoJDBC.idGerente();
+
+				String matriculaGerenteString = gerenteDaoJDBC.voltarMatriculaAtravesDoId(matriculaGerente);
 
 				int resposta = JOptionPane.showConfirmDialog(null,
 						"NOME COMPLETO: " + nomeCompleto + "\nMATRICULA: " + matricula + "\nEMAIL: " + email
-								+ "\nTELEFONE: " + telefoneFomartado + "\nSETOR RESPONSÁVEL: " + matriculaGerente
-								+ "\n\nTEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE? ",
+								+ "\nTELEFONE: " + telefoneFomartado + "\nGERENTE RESPONSÁVEL: "
+								+ matriculaGerenteString + "\n\nTEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE? ",
 						"CONFIRMAÇÃO DE CADASTRADO", JOptionPane.YES_NO_OPTION);
 
 				if (resposta == 0) {

@@ -25,14 +25,6 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 		try {
 
-			if (gerenteObj.getEmail() == null) {
-				System.out.println("email nulo");
-			} else if (gerenteObj.getTelefone() == null) {
-				System.out.println("telefone nuloe");
-			} else if (gerenteObj.getSetorResponsavel() == null) {
-				System.out.println("setor nulo");
-			}
-
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
 			st = conexao.prepareStatement(
@@ -108,6 +100,9 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
 		}
 
 	}
@@ -199,13 +194,13 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 	}
 
-	public String gerenteMatricula() {
+	public int idGerente() {
 
 		try {
 
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
-			st = conexao.prepareStatement("select NOME_COMPLETO, MATRICULA from gerente");
+			st = conexao.prepareStatement("select ID, NOME_COMPLETO, MATRICULA from gerente");
 
 			rs = st.executeQuery();
 
@@ -213,10 +208,12 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			while (rs.next()) {
 
+				int idGerente = rs.getInt("ID");
 				String matriculaGerente = rs.getString("MATRICULA");
 				String nomeGerente = rs.getString("NOME_COMPLETO");
 
-				listaGerente.add("MATRÍCULA: " + matriculaGerente + " | NOME: " + nomeGerente + "\n");
+				listaGerente.add(
+						"ID: " + idGerente + " | MATRÍCULA: " + matriculaGerente + " | NOME: " + nomeGerente + "\n");
 
 			}
 
@@ -228,9 +225,10 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			}
 
-			String matriculaEscolhida = JOptionPane.showInputDialog(gerente);
+			int idGerenteEscolhido = Integer
+					.parseInt(JOptionPane.showInputDialog(gerente + "\nINFORME O ID DO GERENTE"));
 
-			return matriculaEscolhida;
+			return idGerenteEscolhido;
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
@@ -300,6 +298,40 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			}
 
+			return retorno;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
+
+	}
+
+	public String voltarMatriculaAtravesDoId(Integer id) {
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement(
+					"select gerente.MATRICULA from gerente, atendente where (gerente_responsavel and gerente.id) = ?");
+
+			st.setInt(1, id);
+
+			rs = st.executeQuery();
+
+			String retorno = "";
+
+			if (rs.next()) {
+
+				String matricula = rs.getString("MATRICULA");
+
+				retorno = retorno + matricula;
+
+			}
 			return retorno;
 
 		} catch (SQLException e) {
