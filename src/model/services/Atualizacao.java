@@ -81,7 +81,7 @@ public class Atualizacao {
 			String matricula = JOptionPane
 					.showInputDialog("FORNEÇA A MATRÍCULA DO GERENTE QUE DESEJA ATUALIZAR OS DADOS \n").toUpperCase();
 
-			String aqui = atendenteDaoJDBC.emailTelefoneGerente(matricula);
+			String aqui = gerenteDaoJDBC.emailTelefoneSetor(matricula);
 
 			Object[] possibleValues = { "EMAIL", "TELEFONE", "SETOR RESPONSÁVEL " };
 

@@ -125,7 +125,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 			st = conexao.prepareStatement(
 					"SELECT atendente.email, atendente.telefone, gerente.nome_completo FROM atendente, "
-					+ "gerente WHERE atendente.GERENTE_RESPONSAVEL = gerente.id AND atendente.matricula = ?");
+							+ "gerente WHERE atendente.GERENTE_RESPONSAVEL = gerente.id AND atendente.matricula = ?");
 
 			st.setString(1, Matricula);
 

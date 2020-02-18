@@ -278,7 +278,7 @@ public class GerenteDaoJDBC implements GerenteDao {
 		try {
 
 			st = conexao.prepareStatement(
-					"select NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR from GERENTE,SETOR where SETOR_RESPONSAVEL = ID AND MATRICULA = ?");
+					"select EMAIL, TELEFONE, setor.setor from GERENTE,SETOR where SETOR_RESPONSAVEL = setor.ID AND MATRICULA = ?");
 
 			st.setString(1, Matricula);
 
