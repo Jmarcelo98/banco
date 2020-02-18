@@ -62,7 +62,7 @@ public class Cadastramento {
 				int resposta = JOptionPane.showConfirmDialog(null,
 						"NOME COMPLETO: " + nomeCompleto + "\nMATRICULA: " + matricula + "\nEMAIL: " + email
 								+ "\nTELEFONE: " + telefoneFomartado + "\nGERENTE RESPONSÁVEL: "
-								+ matriculaGerenteString + "\n\nTEM CERTEZA QUE DESEJA CADASTRAR ESSE GERENTE? ",
+								+ matriculaGerenteString + "\n\nTEM CERTEZA QUE DESEJA CADASTRAR ESSE ATENDENTE? ",
 						"CONFIRMAÇÃO DE CADASTRADO", JOptionPane.YES_NO_OPTION);
 
 				if (resposta == 0) {

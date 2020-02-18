@@ -124,7 +124,8 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 		try {
 
 			st = conexao.prepareStatement(
-					"select NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, GERENTE_RESPOSAVEL from GERENTE,SETOR where SETOR_RESPONSAVEL = ID AND MATRICULA = ?");
+					"SELECT atendente.email, atendente.telefone, gerente.nome_completo FROM atendente, "
+					+ "gerente WHERE atendente.GERENTE_RESPONSAVEL = gerente.id AND atendente.matricula = ?");
 
 			st.setString(1, Matricula);
 
@@ -136,7 +137,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 				String email = rs.getString("EMAIL");
 				String telefone = rs.getString("TELEFONE");
-				String gerenteRespon = rs.getString("GERENTE_RESPONSAVEL");
+				String gerenteRespon = rs.getString("NOME_COMPLETO");
 
 				retorno = "EMAIL: " + email + "\nTELEFONE: " + telefone + "\nGERENTE RESPONSÁVEL: " + gerenteRespon;
 
