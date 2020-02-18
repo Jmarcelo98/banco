@@ -80,13 +80,6 @@ public class GerenteDaoJDBC implements GerenteDao {
 				st.setString(2, Matricula);
 
 			}
-//
-//			st = conexao.prepareStatement(
-//					"update gerente set EMAIL, TELEFONE, SETOR_RESPONSAVEL  = (?,?,?) where matricula = ?");
-//
-//			st.setString(1, gerenteObj.getEmail());
-//			st.setString(2, gerenteObj.getTelefone());
-//			st.setInt(3, gerenteObj.getSetorResponsavel());
 
 			int linhasAfetadas = st.executeUpdate();
 

@@ -161,7 +161,7 @@ public class Cadastramento {
 
 			String nomeCompleto = JOptionPane.showInputDialog("NOME COMPLETO").toUpperCase();
 
-			String CPF = JOptionPane.showInputDialog("CPF").replaceAll("-", "");
+			String CPF = JOptionPane.showInputDialog("CPF").replaceAll("-", "").replaceAll("\\.", "");
 			CPF = FormatarStrings.formatarCPF(CPF);
 
 			String email = JOptionPane.showInputDialog("EMAIL").toUpperCase();

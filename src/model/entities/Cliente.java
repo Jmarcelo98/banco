@@ -20,6 +20,13 @@ public class Cliente implements Serializable {
 
 	}
 
+	public Cliente(String email, String telefone, double salarioLiquido) {
+		super();
+		this.email = email;
+		this.telefone = telefone;
+		this.salarioLiquido = salarioLiquido;
+	}
+
 	public Cliente(String nomeCompleto, String cPF, String email, String telefone, String dataNascimento,
 			double salarioLiquido) {
 		super();

@@ -5,9 +5,11 @@ import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 
 import model.dao.implementacao.AtendenteDaoJDBC;
+import model.dao.implementacao.ClienteDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.dao.implementacao.SetorDaoJDBC;
 import model.entities.Atendente;
+import model.entities.Cliente;
 import model.entities.Gerente;
 
 public class Atualizacao {
@@ -15,8 +17,10 @@ public class Atualizacao {
 	SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
 	GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
 	AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
+	ClienteDaoJDBC clienteDaoJDBC = new ClienteDaoJDBC();
 	Atendente atendente = new Atendente();
 	Gerente gerente = new Gerente();
+	Cliente cliente = new Cliente();
 
 	public void atualizarAtendente() {
 
@@ -132,6 +136,52 @@ public class Atualizacao {
 	public void atualizarCliente() {
 
 		try {
+
+			String CPF = JOptionPane.showInputDialog("FORNEÇA O CPF DO CLIENTE QUE DESEJA ATUALIZAR OS DADOS \n")
+					.replaceAll("-", "").replaceAll("\\.", "");
+			CPF = FormatarStrings.formatarCPF(CPF);
+
+			System.out.println(CPF);
+
+			String aqui = clienteDaoJDBC.emailTelefoneSalario(CPF);
+
+			Object[] possibleValues = { "EMAIL", "TELEFONE", "SALÁRIO " };
+
+			Object selectedValue = JOptionPane.showInputDialog(null,
+					aqui + "\n \n" + "INFORME QUAL DADO DESEJA ATUALIZAR", "ATUALIZAR DADOS DO CLIENTE",
+					JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
+
+			if (selectedValue == possibleValues[0]) {
+				String email = JOptionPane.showInputDialog("NOVO EMAIL").toUpperCase();
+
+				ValidarEmail validarEmail = new ValidarEmail(email);
+				boolean validacao = validarEmail.validarEmail();
+
+				if (validacao == false) {
+
+					JOptionPane.showMessageDialog(null, "NOVO EMAIL INVÁLIDADO", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+				} else {
+
+					cliente = new Cliente(email, null, 0);
+					clienteDaoJDBC.atualizar(cliente, CPF);
+				}
+
+			} else if (selectedValue == possibleValues[1]) {
+
+				String telefone = JOptionPane.showInputDialog("NOVO TELEFONE COM (DD)").toUpperCase();
+				String telefoneFormatado = FormatarStrings
+						.formatString(telefone.replaceAll(" ", "").replaceAll("() -", ""), "(##) #####-####");
+				cliente = new Cliente(null, telefoneFormatado, 0);
+				clienteDaoJDBC.atualizar(cliente, CPF);
+
+			} else if (selectedValue == possibleValues[2]) {
+
+				Double salario = Double.parseDouble(JOptionPane.showInputDialog("NOVO SALÁRIO LÍQUIDO"));
+
+				cliente = new Cliente(null, null, salario);
+				clienteDaoJDBC.atualizar(cliente, CPF);
+			}
 
 		} catch (InputMismatchException e) {
 			e.getMessage();

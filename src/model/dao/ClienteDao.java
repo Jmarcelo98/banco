@@ -8,7 +8,7 @@ public interface ClienteDao {
 
 	void inserir(Cliente clienteObj);
 
-	void atualizar(Cliente clienteObj);
+	void atualizar(Cliente clienteObj, String CPF);
 
 	void deletarPeloCPF(String CPF);
 

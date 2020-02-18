@@ -58,7 +58,7 @@ public class Programa {
 		// RECEBER DADOS
 //		String resposta = JOptionPane.showInputDialog("Digite um valor:");
 //		System.out.println(resposta);
-		atualizarDados.atualizarGerente();
+		atualizarDados.atualizarCliente();
 //		try {
 //
 //			System.out.println("1 - Cadastrar");
