@@ -102,7 +102,30 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 	@Override
 	public void deletarPelaMatricula(String Matricula) {
-		// TODO Auto-generated method stub
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement("delete from GERENTE where matricula = ?");
+
+			st.setString(1, Matricula);
+
+			int linhasAfetadas = st.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				JOptionPane.showMessageDialog(null, "GERENTE EXCLUÍDO COM SUCESSO", "CADASTRO GERENTE",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "ERRO AO EXCLUIR O GERENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
 
 	}
 
@@ -129,18 +152,18 @@ public class GerenteDaoJDBC implements GerenteDao {
 				gerente.setEmail(rs.getString("EMAIL"));
 				gerente.setTelefone(rs.getString("TELEFONE"));
 				gerente.setSetorResponsavel(rs.getInt("SETOR_RESPONSAVEL"));
-				
+
 				int setorNome = gerente.getSetorResponsavel();
-				
+
 				SetorDaoJDBC setor = new SetorDaoJDBC();
-				
+
 				String result = setor.mostrarSetorDeAcordoComId(setorNome);
 
-				JOptionPane
-						.showMessageDialog(null,
-								"NOME COMPLETO: " + gerente.getNome_completo() + "\nMATRÍCULA: "
-										+ gerente.getMatricula() + "\nEMAIL: " + gerente.getEmail() + "\nTELEFONE: " + gerente.getTelefone() + "\nSETOR RESPONSÁVEL: " + result,
-								null, JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null,
+						"NOME COMPLETO: " + gerente.getNome_completo() + "\nMATRÍCULA: " + gerente.getMatricula()
+								+ "\nEMAIL: " + gerente.getEmail() + "\nTELEFONE: " + gerente.getTelefone()
+								+ "\nSETOR RESPONSÁVEL: " + result,
+						null, JOptionPane.INFORMATION_MESSAGE);
 
 				return gerente;
 
