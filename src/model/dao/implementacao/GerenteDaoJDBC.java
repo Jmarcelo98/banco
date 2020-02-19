@@ -13,6 +13,7 @@ import banco_de_dados.BdExcecao;
 import banco_de_dados.Conexao_banco_dados;
 import model.dao.GerenteDao;
 import model.entities.Gerente;
+import model.services.Atualizacao;
 
 public class GerenteDaoJDBC implements GerenteDao {
 
@@ -157,30 +158,35 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 				SetorDaoJDBC setor = new SetorDaoJDBC();
 
-				String result = setor.mostrarSetorDeAcordoComId(setorNome);
+				String setorEmString = setor.mostrarSetorDeAcordoComId(setorNome);
 
-				JOptionPane.showMessageDialog(null,
+				Object[] valoresPossiveis = { "ATUALIZAR DADOS DO GERENTE", "DELETAR GERENTE" };
+
+				Object selectedValue = JOptionPane.showInputDialog(null,
 						"NOME COMPLETO: " + gerente.getNome_completo() + "\nMATRÍCULA: " + gerente.getMatricula()
 								+ "\nEMAIL: " + gerente.getEmail() + "\nTELEFONE: " + gerente.getTelefone()
-								+ "\nSETOR RESPONSÁVEL: " + result,
-						null, JOptionPane.INFORMATION_MESSAGE);
+								+ "\nSETOR RESPONSÁVEL: " + setorEmString + "\n\n",
+						"ATUALIZAR DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
+						valoresPossiveis[0]);
+
+				if (selectedValue == valoresPossiveis[0]) {
+					Atualizacao atu = new Atualizacao();
+					atu.atualizarGerente(Matricula);
+				} else if (selectedValue == valoresPossiveis[1]) {
+
+					int resposta = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR ESSE GERENTE? ",
+							"EXCLUSÃO DE GERENTE", JOptionPane.YES_NO_OPTION);
+
+					if (resposta == 0) {
+						deletarPelaMatricula(Matricula);
+					} else {
+						JOptionPane.showMessageDialog(null, "GERENTE NÃO EXCLUÍDO", "EXCLUSÃO DE GERENTE",
+								JOptionPane.ERROR_MESSAGE);
+					}
+
+				}
 
 				return gerente;
-
-//				String nome = gerente.getNome_completo();
-//				String matricula = gerente.getMatricula();
-//				String email = gerente.getEmail();
-//				String telefone = gerente.getTelefone();
-//				int setor = gerente.getSetorResponsavel();
-//				
-//				SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
-//				String setorEmNome = setorDaoJDBC.mostrarSetorDeAcordoComId(setor);
-
-//				System.out.println("NOME COMPLETO: " + nome_Completo);
-//				System.out.println("MATRICULA: " + matricula);
-//				System.out.println("EMAIL: " + email);
-//				System.out.println("TELEFONE: " + telefone);
-//				System.out.println("SETOR_RESPONSAVEL: " + setorRespon);
 
 			}
 
@@ -198,7 +204,43 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 	@Override
 	public List<Gerente> procurarTodos() {
-		return null;
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement(
+					"select nome_completo, matricula, email, telefone, setor from gerente, setor where setor_responsavel = setor.id");
+
+			rs = st.executeQuery();
+
+			String retorno = "";
+
+			while (rs.next()) {
+
+				String nomeCompleto = rs.getString("nome_completo");
+				String matricula = rs.getString("matricula");
+				String email = rs.getString("email");
+				String telefone = rs.getString("telefone");
+				String setor = rs.getString("setor");
+
+				retorno = retorno + "NOME COMPLETO: " + nomeCompleto + "\nMATRICULA: " + matricula + "\nEMAIL: " + email
+						+ "\nTELEFONE: " + telefone + "\nSETOR: " + setor + "\n\n";
+
+			}
+
+			JOptionPane.showMessageDialog(null, retorno);
+
+			return null;
+
+//			
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+		}
 
 	}
 
@@ -208,21 +250,23 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
-			List<Gerente> lista = new ArrayList<>();
-
 			st = conexao.prepareStatement("select NOME_COMPLETO, MATRICULA from gerente");
 
 			rs = st.executeQuery();
+
+			String retorn = "";
 
 			while (rs.next()) {
 
 				String matriculaGerente = rs.getString("MATRICULA");
 				String nomeGerente = rs.getString("NOME_COMPLETO");
 
-				System.out.println("MATRICULA: " + matriculaGerente + "  NOME COMPLETO: " + nomeGerente);
+				retorn = "MATRICULA: " + matriculaGerente + "\nNOME COMPLETO: " + nomeGerente;
+
+				JOptionPane.showMessageDialog(null, retorn);
 
 			}
-			return lista;
+			return null;
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());

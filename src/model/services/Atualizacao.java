@@ -78,19 +78,21 @@ public class Atualizacao {
 
 	}
 
-	public void atualizarGerente() {
+	public void atualizarGerente(String Matricula) {
 
 		try {
 
-			String matricula = JOptionPane
-					.showInputDialog("FORNEÇA A MATRÍCULA DO GERENTE QUE DESEJA ATUALIZAR OS DADOS \n").toUpperCase();
+//			String matricula = JOptionPane
+//					.showInputDialog("FORNEÇA A MATRÍCULA DO GERENTE QUE DESEJA ATUALIZAR OS DADOS \n").toUpperCase();
+
+			String matricula = Matricula.toUpperCase();
 
 			String aqui = gerenteDaoJDBC.emailTelefoneSetor(matricula);
 
 			Object[] possibleValues = { "EMAIL", "TELEFONE", "SETOR RESPONSÁVEL " };
 
 			Object selectedValue = JOptionPane.showInputDialog(null,
-					aqui + "\n \n" + "INFORME QUAL DADO DESEJA ATUALIZAR", "ATUALIZAR DADOS DO GERENTE",
+					aqui + "\n" + "INFORME QUAL DADO DESEJA ATUALIZAR \n\n", "ATUALIZAR DADOS DO GERENTE",
 					JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
 
 			if (selectedValue == possibleValues[0]) {

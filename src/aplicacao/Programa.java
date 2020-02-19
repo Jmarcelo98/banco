@@ -23,10 +23,10 @@ public class Programa {
 
 		Scanner sc = new Scanner(System.in);
 
-		String mat = "G2231312";
-		
-		
-		gerenteJDBC.deletarPelaMatricula(mat);
+		String mat = "G2201525";
+
+//		cadastrarFuncionario.cadastrarGerente();
+		gerenteJDBC.procurarPelaMatricula(mat);
 //		String resul = setorDaoJDBC.mostrarSetorDeAcordoComId(gerente.getSetorResponsavel());
 
 //		 MENSAGEM
