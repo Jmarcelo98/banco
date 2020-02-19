@@ -111,6 +111,17 @@ public class ClienteDaoJDBC implements ClienteDao {
 	@Override
 	public Cliente procurarPeloCPF(String CPF) {
 
+		try {
+			
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement("SELECT * FROM cliente where CPF = ?");
+
+		} catch (SQLException e) {
+
+		}
+
 		return null;
 	}
 

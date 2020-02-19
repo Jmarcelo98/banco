@@ -6,6 +6,8 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import model.dao.implementacao.GerenteDaoJDBC;
+import model.dao.implementacao.SetorDaoJDBC;
+import model.entities.Gerente;
 import model.services.Atualizacao;
 import model.services.Cadastramento;
 
@@ -16,8 +18,18 @@ public class Programa {
 		Cadastramento cadastrarFuncionario = new Cadastramento();
 		Atualizacao atualizarDados = new Atualizacao();
 		GerenteDaoJDBC gerenteJDBC = new GerenteDaoJDBC();
+		Gerente gerente = new Gerente();
+		SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
 
 		Scanner sc = new Scanner(System.in);
+
+		String mat = "G2277425";
+		
+		
+		gerenteJDBC.procurarPelaMatricula(mat);
+//		String resul = setorDaoJDBC.mostrarSetorDeAcordoComId(gerente.getSetorResponsavel());
+
+		System.out.println(gerente.getNome_completo());
 
 //		 MENSAGEM
 //		JOptionPane.showMessageDialog(null, "teste");
@@ -58,7 +70,7 @@ public class Programa {
 		// RECEBER DADOS
 //		String resposta = JOptionPane.showInputDialog("Digite um valor:");
 //		System.out.println(resposta);
-		atualizarDados.atualizarCliente();
+
 //		try {
 //
 //			System.out.println("1 - Cadastrar");

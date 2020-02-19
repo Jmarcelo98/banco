@@ -114,7 +114,7 @@ public class GerenteDaoJDBC implements GerenteDao {
 		try {
 
 			st = conexao.prepareStatement(
-					"select NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR from GERENTE,SETOR where SETOR_RESPONSAVEL = ID AND MATRICULA = ?");
+					"select NOME_COMPLETO, MATRICULA, EMAIL, TELEFONE, SETOR_RESPONSAVEL from gerente where matricula = ?");
 
 			st.setString(1, Matricula);
 
@@ -122,19 +122,42 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			if (rs.next()) {
 
-				System.out.println();
+				Gerente gerente = new Gerente();
 
-				String nome_Completo = rs.getString("NOME_COMPLETO");
-				String matricula = rs.getString("MATRICULA");
-				String email = rs.getString("EMAIL");
-				String telefone = rs.getString("TELEFONE");
-				String setorRespon = rs.getString("SETOR");
+				gerente.setNome_completo(rs.getString("NOME_COMPLETO"));
+				gerente.setMatricula(rs.getString("MATRICULA"));
+				gerente.setEmail(rs.getString("EMAIL"));
+				gerente.setTelefone(rs.getString("TELEFONE"));
+				gerente.setSetorResponsavel(rs.getInt("SETOR_RESPONSAVEL"));
+				
+				int setorNome = gerente.getSetorResponsavel();
+				
+				SetorDaoJDBC setor = new SetorDaoJDBC();
+				
+				String result = setor.mostrarSetorDeAcordoComId(setorNome);
 
-				System.out.println("NOME COMPLETO: " + nome_Completo);
-				System.out.println("MATRICULA: " + matricula);
-				System.out.println("EMAIL: " + email);
-				System.out.println("TELEFONE: " + telefone);
-				System.out.println("SETOR_RESPONSAVEL: " + setorRespon);
+				JOptionPane
+						.showMessageDialog(null,
+								"NOME COMPLETO: " + gerente.getNome_completo() + "\nMATRÍCULA: "
+										+ gerente.getMatricula() + "\nEMAIL: " + gerente.getEmail() + "\nTELEFONE: " + gerente.getTelefone() + "\nSETOR RESPONSÁVEL: " + result,
+								null, JOptionPane.INFORMATION_MESSAGE);
+
+				return gerente;
+
+//				String nome = gerente.getNome_completo();
+//				String matricula = gerente.getMatricula();
+//				String email = gerente.getEmail();
+//				String telefone = gerente.getTelefone();
+//				int setor = gerente.getSetorResponsavel();
+//				
+//				SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
+//				String setorEmNome = setorDaoJDBC.mostrarSetorDeAcordoComId(setor);
+
+//				System.out.println("NOME COMPLETO: " + nome_Completo);
+//				System.out.println("MATRICULA: " + matricula);
+//				System.out.println("EMAIL: " + email);
+//				System.out.println("TELEFONE: " + telefone);
+//				System.out.println("SETOR_RESPONSAVEL: " + setorRespon);
 
 			}
 
