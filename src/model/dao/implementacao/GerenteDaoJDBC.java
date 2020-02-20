@@ -160,7 +160,7 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 				String setorEmString = setor.mostrarSetorDeAcordoComId(setorNome);
 
-				Object[] valoresPossiveis = { "ATUALIZAR DADOS DO GERENTE", "DELETAR GERENTE" };
+				Object[] valoresPossiveis = { "ATUALIZAR DADOS DO GERENTE", "DELETAR DADOS DO GERENTE" };
 
 				Object selectedValue = JOptionPane.showInputDialog(null,
 						"NOME COMPLETO: " + gerente.getNome_completo() + "\nMATRÍCULA: " + gerente.getMatricula()
@@ -180,7 +180,7 @@ public class GerenteDaoJDBC implements GerenteDao {
 					if (resposta == 0) {
 						deletarPelaMatricula(Matricula);
 					} else {
-						JOptionPane.showMessageDialog(null, "GERENTE NÃO EXCLUÍDO", "EXCLUSÃO DE GERENTE",
+						JOptionPane.showMessageDialog(null, "GERENTE NÃO EXCLUÍDO", "EXCLUIR GERENTE",
 								JOptionPane.ERROR_MESSAGE);
 					}
 
@@ -416,6 +416,36 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			}
 			return retorno;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
+
+	}
+
+	public String mostrarGerenteDeAcordoComId(int id) {
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement("select nome_completo from gerente where id = ?");
+
+			st.setInt(1, id);
+
+			rs = st.executeQuery();
+
+			String finals = null;
+
+			while (rs.next()) {
+				String setor = rs.getString("NOME_COMPLETO");
+				finals = setor;
+			}
+			return finals;
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());

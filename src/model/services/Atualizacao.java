@@ -22,20 +22,19 @@ public class Atualizacao {
 	Gerente gerente = new Gerente();
 	Cliente cliente = new Cliente();
 
-	public void atualizarAtendente() {
+	public void atualizarAtendente(String Matricula) {
 
 		try {
 
-			String matricula = JOptionPane
-					.showInputDialog("FORNEÇA A MATRÍCULA DO ATENDENTE QUE DESEJA ATUALIZAR OS DADOS \n").toUpperCase();
+			String matricula = Matricula.toUpperCase();
 
 			String aqui = atendenteDaoJDBC.emailTelefoneGerente(matricula);
 
 			Object[] valoresPossiveis = { "EMAIL", "TELEFONE", "GERENTE RESPONSÁVEL" };
 
-			Object selectedValue = JOptionPane.showInputDialog(null,
-					aqui + "\n \n" + "INFORME QUAL DADO DESEJA ATUALIZAR", "ATUALIZAR DADOS DO ATENDENTE",
-					JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis, valoresPossiveis[0]);
+			Object selectedValue = JOptionPane.showInputDialog(null, aqui + "\n\nINFORME QUAL DADO DESEJA ATUALIZAR\n\n",
+					"DADOS DO ATENDENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
+					valoresPossiveis[0]);
 
 			if (selectedValue == valoresPossiveis[0]) {
 				String email = JOptionPane.showInputDialog("NOVO EMAIL").toUpperCase();
@@ -60,6 +59,7 @@ public class Atualizacao {
 						.formatString(telefone.replaceAll(" ", "").replaceAll("() -", ""), "(##) #####-####");
 
 				atendente = new Atendente(null, telefoneFormatado, null);
+				atendenteDaoJDBC.atualizar(atendente, matricula);
 
 			} else if (selectedValue == valoresPossiveis[2]) {
 
@@ -82,18 +82,15 @@ public class Atualizacao {
 
 		try {
 
-//			String matricula = JOptionPane
-//					.showInputDialog("FORNEÇA A MATRÍCULA DO GERENTE QUE DESEJA ATUALIZAR OS DADOS \n").toUpperCase();
-
 			String matricula = Matricula.toUpperCase();
 
 			String aqui = gerenteDaoJDBC.emailTelefoneSetor(matricula);
 
 			Object[] possibleValues = { "EMAIL", "TELEFONE", "SETOR RESPONSÁVEL " };
 
-			Object selectedValue = JOptionPane.showInputDialog(null,
-					aqui + "\n" + "INFORME QUAL DADO DESEJA ATUALIZAR \n\n", "ATUALIZAR DADOS DO GERENTE",
-					JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
+			Object selectedValue = JOptionPane.showInputDialog(null, aqui + "\nINFORME QUAL DADO DESEJA ATUALIZAR \n\n",
+					"DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, possibleValues,
+					possibleValues[0]);
 
 			if (selectedValue == possibleValues[0]) {
 				String email = JOptionPane.showInputDialog("NOVO EMAIL").toUpperCase();

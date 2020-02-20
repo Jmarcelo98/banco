@@ -12,6 +12,7 @@ import banco_de_dados.BdExcecao;
 import banco_de_dados.Conexao_banco_dados;
 import model.dao.AtendenteDao;
 import model.entities.Atendente;
+import model.services.Atualizacao;
 
 public class AtendenteDaoJDBC implements AtendenteDao {
 
@@ -103,12 +104,101 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 	@Override
 	public void deletarPelaMatricula(String Matricula) {
 
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement("delete from atendente where matricula = ?");
+			st.setString(1, Matricula);
+
+			int linhasAfetadas = st.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				JOptionPane.showMessageDialog(null, "ATENDENTE EXCLUÍDO COM SUCESSO", "CADASTRO GERENTE",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "ERRO AO EXCLUIR O ATENDENTE", "ERROR", JOptionPane.ERROR_MESSAGE);
+			}
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
+
 	}
 
 	@Override
 	public Atendente procurarPelaMatricula(String Matricula) {
-		// TODO Auto-generated method stub
-		return null;
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement(
+					"select atendente.NOME_COMPLETO, atendente.MATRICULA, atendente.EMAIL, atendente.TELEFONE, GERENTE_RESPONSAVEL from atendente left join gerente on gerente_responsavel = ?");
+
+			st.setString(1, Matricula);
+
+			rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				Atendente atendente = new Atendente();
+
+				atendente.setNome_completo(rs.getString("NOME_COMPLETO"));
+				atendente.setMatricula(rs.getString("MATRICULA"));
+				atendente.setEmail(rs.getString("EMAIL"));
+				atendente.setTelefone(rs.getString("TELEFONE"));
+				atendente.setGerente_responsavel(rs.getInt("GERENTE_RESPONSAVEL"));
+
+				int idGerenteResponsavel = atendente.getGerente_responsavel();
+
+				GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
+
+				String nomeGerente = gerenteDaoJDBC.mostrarGerenteDeAcordoComId(idGerenteResponsavel);
+
+				Object[] valoresPossiveis = { "ATUALIZAR DADOS DO ATENDENTE", "DELETAR DADOS DO ATENDENTE" };
+
+				Object selectedValue = JOptionPane.showInputDialog(null,
+						"NOME COMPLETO: " + atendente.getNome_completo() + "\nMATRÍCULA: " + atendente.getMatricula()
+								+ "\nEMAIL: " + atendente.getEmail() + "\nTELEFONE: " + atendente.getTelefone()
+								+ "\nGERENTE RESPONSÁVEL: " + nomeGerente + "\n\n",
+						"ATUALIZAR DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
+						valoresPossiveis[0]);
+
+				if (selectedValue == valoresPossiveis[0]) {
+					Atualizacao atu = new Atualizacao();
+					atu.atualizarAtendente(Matricula);
+
+				} else if (selectedValue == valoresPossiveis[1]) {
+
+					int resposta = JOptionPane.showConfirmDialog(null,
+							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE ATENDENTE? ", "EXCLUSÃO DE GERENTE",
+							JOptionPane.YES_NO_OPTION);
+
+					if (resposta == 0) {
+						deletarPelaMatricula(Matricula);
+					} else {
+						JOptionPane.showMessageDialog(null, "ATENDENTE NÃO EXCLUÍDO", "EXCLUIR ATENDENTE",
+								JOptionPane.ERROR_MESSAGE);
+					}
+
+				}
+				return atendente;
+
+			}
+			return null;
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharResultSet(rs);
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
+
 	}
 
 	@Override

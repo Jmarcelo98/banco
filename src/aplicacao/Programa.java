@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.dao.implementacao.SetorDaoJDBC;
 import model.entities.Gerente;
@@ -23,10 +24,12 @@ public class Programa {
 
 		Scanner sc = new Scanner(System.in);
 
-		String mat = "G2201525";
+		String mat = "G2262271";
 
 //		cadastrarFuncionario.cadastrarGerente();
+		AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
 		gerenteJDBC.procurarPelaMatricula(mat);
+//		atendenteDaoJDBC.procurarPelaMatricula(mat);
 //		String resul = setorDaoJDBC.mostrarSetorDeAcordoComId(gerente.getSetorResponsavel());
 
 //		 MENSAGEM
