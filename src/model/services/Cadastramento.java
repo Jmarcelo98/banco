@@ -122,10 +122,7 @@ public class Cadastramento {
 					setor = "RECURSOS HUMANOS";
 				}
 
-//				System.out.println();
-//				System.out.print("INFORME O \"ID\" DE QUAL SETOR O GERENTE É RESPONSÁVEL: ");
-				// int setorResponsavel = ;
-
+				
 				int resposta = JOptionPane.showConfirmDialog(null,
 						"NOME COMPLETO: " + nomeCompleto + "\nMATRICULA: " + matricula + "\nEMAIL: " + email
 								+ "\nTELEFONE: " + telefoneFomartado + "\nSETOR RESPONSÁVEL: " + setor

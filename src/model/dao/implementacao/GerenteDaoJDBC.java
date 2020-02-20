@@ -174,8 +174,9 @@ public class GerenteDaoJDBC implements GerenteDao {
 					atu.atualizarGerente(Matricula);
 				} else if (selectedValue == valoresPossiveis[1]) {
 
-					int resposta = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR ESSE GERENTE? ",
-							"EXCLUSÃO DE GERENTE", JOptionPane.YES_NO_OPTION);
+					int resposta = JOptionPane.showConfirmDialog(null,
+							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE GERENTE? '" + gerente.getNome_completo() + " '",
+							"EXCLUIR GERENTE", JOptionPane.YES_NO_OPTION);
 
 					if (resposta == 0) {
 						deletarPelaMatricula(Matricula);
@@ -295,8 +296,8 @@ public class GerenteDaoJDBC implements GerenteDao {
 				String matriculaGerente = rs.getString("MATRICULA");
 				String nomeGerente = rs.getString("NOME_COMPLETO");
 
-				listaGerente.add(
-						"ID: " + idGerente + " | MATRÍCULA: " + matriculaGerente + " | NOME: " + nomeGerente + "\n");
+				listaGerente
+						.add("ID: " + idGerente + "\nMATRÍCULA: " + matriculaGerente + "\nNOME: " + nomeGerente + "\n");
 
 			}
 
@@ -399,8 +400,7 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 		try {
 
-			st = conexao.prepareStatement(
-					"select gerente.MATRICULA from gerente, atendente where (gerente_responsavel and gerente.id) = ?");
+			st = conexao.prepareStatement("select NOME_COMPLETO from gerente where id =  ?");
 
 			st.setInt(1, id);
 
@@ -410,7 +410,7 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 			if (rs.next()) {
 
-				String matricula = rs.getString("MATRICULA");
+				String matricula = rs.getString("NOME_COMPLETO");
 
 				retorno = retorno + matricula;
 

@@ -16,19 +16,57 @@ public class Programa {
 
 	public static void main(String[] args) {
 
+		Scanner sc = new Scanner(System.in);
+
 		Cadastramento cadastrarFuncionario = new Cadastramento();
 		Atualizacao atualizarDados = new Atualizacao();
 		GerenteDaoJDBC gerenteJDBC = new GerenteDaoJDBC();
 		Gerente gerente = new Gerente();
 		SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
 
-		Scanner sc = new Scanner(System.in);
+		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES", "CONTAS" };
 
-		String mat = "G2262271";
+		Object acaoInicialSelecionada = JOptionPane.showInputDialog(null, "SELECIONE A AÇÃO DESEJADA" + "\n\n",
+				"ManDad", JOptionPane.INFORMATION_MESSAGE, null, acoesIniciais, acoesIniciais[0]);
+
+		if (acaoInicialSelecionada == acoesIniciais[0]) {
+
+			Object[] acoesFuncionario = { "INSERIR FUNCIONÁRIO", "PROCURAR FUNCIONÁRIO" };
+
+			Object acaoFuncionarioSelecionado = JOptionPane.showInputDialog(null, "SELECIONE A AÇÃO DESEJADA" + "\n\n",
+					"ManDad", JOptionPane.INFORMATION_MESSAGE, null, acoesFuncionario, acoesFuncionario[0]);
+
+			if (acaoFuncionarioSelecionado == acoesFuncionario[0]) {
+
+				Object[] acoesInserir = { "ATENDENTE", "GERENTE" };
+
+				Object acaoInserirSelecionada = JOptionPane.showInputDialog(null,
+						"SELECIONE O CARGO PARA INSERIR UM NOVO FUNCIONÁRIO" + "\n\n", "ManDad",
+						JOptionPane.INFORMATION_MESSAGE, null, acoesInserir, acoesInserir[0]);
+
+				if (acaoInserirSelecionada == acoesInserir[0]) {
+
+					Cadastramento cadastrarAtendente = new Cadastramento();
+					cadastrarAtendente.cadastrarAtendente();
+
+				} else if (acaoInserirSelecionada == acoesInserir[1]) {
+
+					Cadastramento cadastramentoGerente = new Cadastramento();
+					cadastramentoGerente.cadastrarGerente();
+
+				}
+
+			}
+
+		} else if (acaoInicialSelecionada == acoesIniciais[1]) {
+			System.out.println("cli");
+		} else if (acaoInicialSelecionada == acoesIniciais[2]) {
+			System.out.println("con");
+		}
 
 //		cadastrarFuncionario.cadastrarGerente();
-		AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
-		gerenteJDBC.procurarPelaMatricula(mat);
+//		AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
+//		gerenteJDBC.procurarPelaMatricula(mat);
 //		atendenteDaoJDBC.procurarPelaMatricula(mat);
 //		String resul = setorDaoJDBC.mostrarSetorDeAcordoComId(gerente.getSetorResponsavel());
 
@@ -61,7 +99,7 @@ public class Programa {
 //			System.out.println("sim");
 //		}
 
-//		System.out.println(JOptionPane.showConfirmDialog(null, "choose one", "choose one", JOptionPane.YES_NO_OPTION));
+//		JOptionPane.showConfirmDialog(null, "choose one", "choose one", JOptionPane.YES_NO_OPTION);
 //
 //		// CLIQUE OK PARA CONTINUAR
 //		Object[] options = { "OK", "CANCEL" };

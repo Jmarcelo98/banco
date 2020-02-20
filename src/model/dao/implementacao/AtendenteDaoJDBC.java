@@ -175,8 +175,8 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 				} else if (selectedValue == valoresPossiveis[1]) {
 
 					int resposta = JOptionPane.showConfirmDialog(null,
-							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE ATENDENTE? ", "EXCLUSÃO DE GERENTE",
-							JOptionPane.YES_NO_OPTION);
+							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE ATENDENTE '" + atendente.getNome_completo() + " '",
+							"EXCLUSÃO DE GERENTE", JOptionPane.YES_NO_OPTION);
 
 					if (resposta == 0) {
 						deletarPelaMatricula(Matricula);
