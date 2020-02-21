@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -203,8 +204,25 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 	@Override
 	public List<Atendente> procurarTodos() {
-		// TODO Auto-generated method stub
+
+		conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+		try {
+
+			st = conexao.prepareStatement("");
+
+		} catch (InputMismatchException e) {
+			e.getMessage();
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "DIGITE APENAS NÚMEROS", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} catch (StringIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(null, "CPF INVÁLIDO", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} catch (NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "CAMPO NÃO PODE SER NULO", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+		}
 		return null;
+
 	}
 
 	public String emailTelefoneGerente(String Matricula) {

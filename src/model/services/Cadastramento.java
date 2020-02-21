@@ -76,6 +76,13 @@ public class Cadastramento {
 
 		} catch (InputMismatchException e) {
 			e.getMessage();
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "DIGITE APENAS NÚMEROS", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} catch (StringIndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(null, "CPF INVÁLIDO", "ERROR", JOptionPane.ERROR_MESSAGE);
+		} catch (NullPointerException e) {
+			JOptionPane.showMessageDialog(null, "CAMPO NÃO PODE SER NULO", "ERROR", JOptionPane.ERROR_MESSAGE);
+
 		}
 
 	}
@@ -122,7 +129,6 @@ public class Cadastramento {
 					setor = "RECURSOS HUMANOS";
 				}
 
-				
 				int resposta = JOptionPane.showConfirmDialog(null,
 						"NOME COMPLETO: " + nomeCompleto + "\nMATRICULA: " + matricula + "\nEMAIL: " + email
 								+ "\nTELEFONE: " + telefoneFomartado + "\nSETOR RESPONSÁVEL: " + setor

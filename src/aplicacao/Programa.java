@@ -26,8 +26,9 @@ public class Programa {
 
 		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES", "CONTAS" };
 
-		Object acaoInicialSelecionada = JOptionPane.showInputDialog(null, "SELECIONE A AÇÃO DESEJADA" + "\n\n",
-				"ManDad", JOptionPane.INFORMATION_MESSAGE, null, acoesIniciais, acoesIniciais[0]);
+		Object acaoInicialSelecionada = JOptionPane.showInputDialog(null,
+				"QUAL ÁREA DESEJA FAZER ALGUMA AÇÃO " + "\n\n", "ManDad", JOptionPane.INFORMATION_MESSAGE, null,
+				acoesIniciais, acoesIniciais[0]);
 
 		if (acaoInicialSelecionada == acoesIniciais[0]) {
 
@@ -53,6 +54,60 @@ public class Programa {
 
 					Cadastramento cadastramentoGerente = new Cadastramento();
 					cadastramentoGerente.cadastrarGerente();
+
+				}
+
+			} else if (acaoFuncionarioSelecionado == acoesFuncionario[1]) {
+
+				Object[] acoesProcurar = { "ATENDENTE", "GERENTE" };
+
+				Object acaoProcurarSelecionada = JOptionPane.showInputDialog(null,
+						"SELECIONE O CARGO PARA PESQUISAR POR UM FUNCIONÁRIO" + "\n\n", "ManDad",
+						JOptionPane.INFORMATION_MESSAGE, null, acoesProcurar, acoesProcurar[0]);
+
+				if (acaoProcurarSelecionada == acoesProcurar[0]) {
+
+					Object[] acoesProcurarAtendente = { "PROCURAR TODOS OS ATENDENTES",
+							"PROCURAR O ATENDENTE PELA MATRÍCULA" };
+
+					Object acaoProcurarAtendenteSelecionada = JOptionPane.showInputDialog(null,
+							"O QUE DESEJA FAZER" + "\n\n", "ManDad", JOptionPane.INFORMATION_MESSAGE, null,
+							acoesProcurarAtendente, acoesProcurarAtendente[0]);
+
+					if (acaoProcurarAtendenteSelecionada == acoesProcurar[0]) {
+
+						AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
+						atendenteDaoJDBC.procurarTodos();
+
+					} else {
+
+						AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
+						String Matricula = JOptionPane.showInputDialog(null, "INFORME A MATRÍCULA DO ATENDENTE");
+						atendenteDaoJDBC.procurarPelaMatricula(Matricula);
+
+					}
+
+				} else if (acaoProcurarSelecionada == acoesProcurar[1]) {
+
+					Object[] acoesProcurarGerente = { "PROCURAR TODOS OS GERENTES",
+							"PROCURAR O GERENTE PELA MATRÍCULA" };
+
+					Object acaoProcurarGerenteSelecionada = JOptionPane.showInputDialog(null,
+							"O QUE DESEJA FAZER" + "\n\n", "ManDad", JOptionPane.INFORMATION_MESSAGE, null,
+							acoesProcurarGerente, acoesProcurarGerente[0]);
+
+					if (acaoProcurarGerenteSelecionada == acoesProcurarGerente[0]) {
+
+						GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
+						gerenteDaoJDBC.procurarTodos();
+
+					} else {
+
+						GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
+						String Matricula = JOptionPane.showInputDialog(null, "INFORME A MATRÍCULA DO GERENTE");
+						gerenteDaoJDBC.procurarPelaMatricula(Matricula);
+
+					}
 
 				}
 
