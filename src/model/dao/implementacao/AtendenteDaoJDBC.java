@@ -210,7 +210,8 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 		try {
 
 			st = conexao.prepareStatement(
-					"select atendente.nome_completo, atendente.matricula, atendente.email, atendente.telefone, gerente.nome_completo from atendente, gerente where gerente_responsavel = gerente.id");
+					"select atendente.nome_completo, atendente.matricula, atendente.email, atendente.telefone, gerente.nome_completo from atendente, "
+							+ "gerente where gerente_responsavel = gerente.id order by atendente.nome_completo");
 
 			rs = st.executeQuery();
 

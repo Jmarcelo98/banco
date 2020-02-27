@@ -175,7 +175,7 @@ public class GerenteDaoJDBC implements GerenteDao {
 				} else if (selectedValue == valoresPossiveis[1]) {
 
 					int resposta = JOptionPane.showConfirmDialog(null,
-							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE GERENTE? '" + gerente.getNome_completo() + " '",
+							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE GERENTE: '" + gerente.getNome_completo() + " '",
 							"EXCLUIR GERENTE", JOptionPane.YES_NO_OPTION);
 
 					if (resposta == 0) {
@@ -211,7 +211,7 @@ public class GerenteDaoJDBC implements GerenteDao {
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
 			st = conexao.prepareStatement(
-					"select nome_completo, matricula, email, telefone, setor from gerente, setor where setor_responsavel = setor.id");
+					"select nome_completo, matricula, email, telefone, setor from gerente, setor where setor_responsavel = setor.id order by gerente.nome_completo");
 
 			rs = st.executeQuery();
 
