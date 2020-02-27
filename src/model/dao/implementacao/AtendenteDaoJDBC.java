@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -137,8 +136,9 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 		try {
 
-			st = conexao.prepareStatement(
-					"select atendente.NOME_COMPLETO, atendente.MATRICULA, atendente.EMAIL, atendente.TELEFONE, GERENTE_RESPONSAVEL from atendente left join gerente on gerente_responsavel = ?");
+			st = conexao.prepareStatement("select atendente.NOME_COMPLETO, atendente.MATRICULA, atendente.EMAIL, "
+					+ "atendente.TELEFONE, GERENTE_RESPONSAVEL from atendente left join gerente on gerente_responsavel = "
+					+ "gerente.nome_completo where atendente.matricula = ?");
 
 			st.setString(1, Matricula);
 
@@ -148,10 +148,10 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 				Atendente atendente = new Atendente();
 
-				atendente.setNome_completo(rs.getString("NOME_COMPLETO"));
-				atendente.setMatricula(rs.getString("MATRICULA"));
-				atendente.setEmail(rs.getString("EMAIL"));
-				atendente.setTelefone(rs.getString("TELEFONE"));
+				atendente.setNome_completo(rs.getString("atendente.NOME_COMPLETO"));
+				atendente.setMatricula(rs.getString("atendente.MATRICULA"));
+				atendente.setEmail(rs.getString("atendente.EMAIL"));
+				atendente.setTelefone(rs.getString("atendente.TELEFONE"));
 				atendente.setGerente_responsavel(rs.getInt("GERENTE_RESPONSAVEL"));
 
 				int idGerenteResponsavel = atendente.getGerente_responsavel();
@@ -176,7 +176,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 				} else if (selectedValue == valoresPossiveis[1]) {
 
 					int resposta = JOptionPane.showConfirmDialog(null,
-							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE ATENDENTE '" + atendente.getNome_completo() + " '",
+							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE ATENDENTE: '" + atendente.getNome_completo() + " '",
 							"EXCLUSÃO DE GERENTE", JOptionPane.YES_NO_OPTION);
 
 					if (resposta == 0) {
@@ -209,9 +209,28 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 		try {
 
-			st = conexao.prepareStatement("");
+			st = conexao.prepareStatement(
+					"select atendente.nome_completo, atendente.matricula, atendente.email, atendente.telefone, gerente.nome_completo from atendente, gerente where gerente_responsavel = gerente.id");
 
-		} catch (InputMismatchException e) {
+			rs = st.executeQuery();
+
+			String retorno = "";
+
+			while (rs.next()) {
+
+				String nomeCompleto = rs.getString("atendente.nome_completo");
+				String matricula = rs.getString("atendente.matricula");
+				String email = rs.getString("atendente.email");
+				String telefone = rs.getString("atendente.telefone");
+				String nomeGerente = rs.getString("gerente.nome_completo");
+
+				retorno = retorno + "NOME COMPLETO: " + nomeCompleto + "\nMATRÍCULA: " + matricula + "\nEMAIL: " + email
+						+ "\nTELEFONE: " + telefone + "\nGERENTE RESPONSÁVEL: " + nomeGerente + "\n\n";
+
+			}
+			JOptionPane.showMessageDialog(null, retorno);
+
+		} catch (SQLException e) {
 			e.getMessage();
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "DIGITE APENAS NÚMEROS", "ERROR", JOptionPane.ERROR_MESSAGE);
