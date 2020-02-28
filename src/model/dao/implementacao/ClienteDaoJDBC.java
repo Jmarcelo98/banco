@@ -112,11 +112,16 @@ public class ClienteDaoJDBC implements ClienteDao {
 	public Cliente procurarPeloCPF(String CPF) {
 
 		try {
-			
 
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
 
-			st = conexao.prepareStatement("SELECT * FROM cliente where CPF = ?");
+			st = conexao.prepareStatement(
+					"select cliente.nome_completo, cliente.cpf, cliente.email, cliente.telefone, cliente.data_nascimento, "
+							+ "cliente.salario from cliente where CPF = ?");
+			st.setString(1, CPF);
+			
+			
+			
 
 		} catch (SQLException e) {
 

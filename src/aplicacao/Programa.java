@@ -5,6 +5,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import model.dao.implementacao.AtendenteDaoJDBC;
+import model.dao.implementacao.ClienteDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.dao.implementacao.SetorDaoJDBC;
 import model.entities.Gerente;
@@ -16,12 +17,6 @@ public class Programa {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-
-		Cadastramento cadastrarFuncionario = new Cadastramento();
-		Atualizacao atualizarDados = new Atualizacao();
-		GerenteDaoJDBC gerenteJDBC = new GerenteDaoJDBC();
-		Gerente gerente = new Gerente();
-		SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
 
 		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES", "CONTAS" };
 
@@ -113,7 +108,25 @@ public class Programa {
 			}
 
 		} else if (acaoInicialSelecionada == acoesIniciais[1]) {
-			System.out.println("cli");
+
+			Object[] acoesCliente = { "INSERIR CLIENTE", "PROCURAR CLIENTE" };
+
+			Object acaoClienteSelecionado = JOptionPane.showInputDialog(null, "SELECIONE A AÇÃO DESEJADA" + "\n\n",
+					"ManDad", JOptionPane.INFORMATION_MESSAGE, null, acoesCliente, acoesCliente[0]);
+
+			if (acaoClienteSelecionado == acoesCliente[0]) {
+
+				Cadastramento cadastramento = new Cadastramento();
+				cadastramento.cadastrarCliente();
+
+			} else if (acaoClienteSelecionado == acoesCliente[1]) {
+
+				ClienteDaoJDBC cliente = new ClienteDaoJDBC();
+				String CPF = JOptionPane.showInputDialog(null, "INFORME O CPF DO CLIENTE");
+				cliente.procurarPeloCPF(CPF);
+
+			}
+
 		} else if (acaoInicialSelecionada == acoesIniciais[2]) {
 			System.out.println("con");
 		}
