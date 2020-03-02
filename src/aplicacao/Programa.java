@@ -6,8 +6,10 @@ import javax.swing.JOptionPane;
 
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
+import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.dao.implementacao.SetorDaoJDBC;
+import model.entities.Conta;
 import model.entities.Gerente;
 import model.services.Atualizacao;
 import model.services.Cadastramento;
@@ -17,6 +19,10 @@ public class Programa {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
+//		
+//		Conta conta = new Conta();
+//		conta.geradorNumeroConta();
+//		conta.digitoConta();
 
 		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES", "CONTAS" };
 
@@ -109,12 +115,14 @@ public class Programa {
 
 		} else if (acaoInicialSelecionada == acoesIniciais[1]) {
 
-			Object[] acoesCliente = { "INSERIR CLIENTE", "PROCURAR CLIENTE" };
+			Object[] acoesCliente = { "CADASTRAR CONTA", "PROCURAR CLIENTE" };
 
 			Object acaoClienteSelecionado = JOptionPane.showInputDialog(null, "SELECIONE A AÇÃO DESEJADA" + "\n\n",
 					"ManDad", JOptionPane.INFORMATION_MESSAGE, null, acoesCliente, acoesCliente[0]);
 
 			if (acaoClienteSelecionado == acoesCliente[0]) {
+
+//				String CPF = JOptionPane.showInputDialog(null, "INFORME O CPF DO CLIENTE");
 
 				Cadastramento cadastramento = new Cadastramento();
 				cadastramento.cadastrarCliente();
@@ -123,7 +131,6 @@ public class Programa {
 
 				ClienteDaoJDBC cliente = new ClienteDaoJDBC();
 				String CPF = JOptionPane.showInputDialog(null, "INFORME O CPF DO CLIENTE");
-				cliente.procurarPeloCPF(CPF);
 
 			}
 

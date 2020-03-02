@@ -4,11 +4,11 @@ import java.util.List;
 
 import model.entities.Conta;
 
-public interface ContaEspecialDao {
+public interface ContaDao {
 
-	void inserir(Conta contaEspecialObj);
+	void inserir(Conta contaSimplesObj);
 
-	void atualizar(Conta contaEspecialObj);
+	void atualizar(Conta contaSimplesObj);
 
 	void deletarPeloCPF(String CPF);
 

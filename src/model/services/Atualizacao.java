@@ -32,9 +32,9 @@ public class Atualizacao {
 
 			Object[] valoresPossiveis = { "EMAIL", "TELEFONE", "GERENTE RESPONSÁVEL" };
 
-			Object selectedValue = JOptionPane.showInputDialog(null, aqui + "\n\nINFORME QUAL DADO DESEJA ATUALIZAR\n\n",
-					"DADOS DO ATENDENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
-					valoresPossiveis[0]);
+			Object selectedValue = JOptionPane.showInputDialog(null,
+					aqui + "\n\nINFORME QUAL DADO DESEJA ATUALIZAR\n\n", "DADOS DO ATENDENTE",
+					JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis, valoresPossiveis[0]);
 
 			if (selectedValue == valoresPossiveis[0]) {
 				String email = JOptionPane.showInputDialog("NOVO EMAIL").toUpperCase();
@@ -89,8 +89,7 @@ public class Atualizacao {
 			Object[] possibleValues = { "EMAIL", "TELEFONE", "SETOR RESPONSÁVEL " };
 
 			Object selectedValue = JOptionPane.showInputDialog(null, aqui + "\nINFORME QUAL DADO DESEJA ATUALIZAR \n\n",
-					"DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, possibleValues,
-					possibleValues[0]);
+					"DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, possibleValues, possibleValues[0]);
 
 			if (selectedValue == possibleValues[0]) {
 				String email = JOptionPane.showInputDialog("NOVO EMAIL").toUpperCase();
@@ -132,15 +131,9 @@ public class Atualizacao {
 
 	}
 
-	public void atualizarCliente() {
+	public void atualizarCliente(String CPF) {
 
 		try {
-
-			String CPF = JOptionPane.showInputDialog("FORNEÇA O CPF DO CLIENTE QUE DESEJA ATUALIZAR OS DADOS \n")
-					.replaceAll("-", "").replaceAll("\\.", "");
-			CPF = FormatarStrings.formatarCPF(CPF);
-
-			System.out.println(CPF);
 
 			String aqui = clienteDaoJDBC.emailTelefoneSalario(CPF);
 

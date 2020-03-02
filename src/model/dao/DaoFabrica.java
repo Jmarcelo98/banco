@@ -3,7 +3,7 @@ package model.dao;
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
 import model.dao.implementacao.ContaEspecialDaoJDBC;
-import model.dao.implementacao.ContaSimplesDaoJDBC;
+import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 
 public class DaoFabrica {
@@ -20,8 +20,8 @@ public class DaoFabrica {
 		return new GerenteDaoJDBC();
 	}
 	
-	public static ContaSimplesDao criarContaSimplesDao() {
-		return new ContaSimplesDaoJDBC();
+	public static ContaDao criarContaSimplesDao() {
+		return new ContaDaoJDBC();
 	}
 
 	public static ContaEspecialDao criarContaEspecialDao() {

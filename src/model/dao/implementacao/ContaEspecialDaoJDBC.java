@@ -3,18 +3,18 @@ package model.dao.implementacao;
 import java.util.List;
 
 import model.dao.ContaEspecialDao;
-import model.entities.ContaEspecial;
+import model.entities.Conta;
 
 public class ContaEspecialDaoJDBC implements ContaEspecialDao{
 
 	@Override
-	public void inserir(ContaEspecial contaEspecialObj) {
+	public void inserir(Conta contaEspecialObj) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void atualizar(ContaEspecial contaEspecialObj) {
+	public void atualizar(Conta contaEspecialObj) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -26,13 +26,13 @@ public class ContaEspecialDaoJDBC implements ContaEspecialDao{
 	}
 
 	@Override
-	public ContaEspecial procurarPeloCPF(String CPF) {
+	public Conta procurarPeloCPF(String CPF) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<ContaEspecial> procurarTodos() {
+	public List<Conta> procurarTodos() {
 		// TODO Auto-generated method stub
 		return null;
 	}

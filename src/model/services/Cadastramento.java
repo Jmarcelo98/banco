@@ -7,10 +7,12 @@ import javax.swing.JOptionPane;
 
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
+import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.dao.implementacao.SetorDaoJDBC;
 import model.entities.Atendente;
 import model.entities.Cliente;
+import model.entities.Conta;
 import model.entities.Gerente;
 
 public class Cadastramento {
@@ -20,13 +22,17 @@ public class Cadastramento {
 	Cliente cliente = new Cliente();
 	Atendente atendente = new Atendente();
 	Gerente gerente = new Gerente();
+	Conta conta = new Conta();
 
 	SetorDaoJDBC setorDaoJDBC = new SetorDaoJDBC();
 	ClienteDaoJDBC clienteDaoJDBC = new ClienteDaoJDBC();
 	GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
 	AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
+	ContaDaoJDBC contaDaoJDBC = new ContaDaoJDBC();
 
 	ValidarEmail validarEmail = new ValidarEmail();
+
+	static int result;
 
 	public void cadastrarAtendente() {
 
@@ -204,6 +210,10 @@ public class Cadastramento {
 				}
 
 			}
+
+			result = clienteDaoJDBC.pegarId(CPF);
+			cadastrarConta();
+
 		} catch (InputMismatchException e) {
 			e.getMessage();
 		} catch (NumberFormatException e) {
@@ -213,5 +223,48 @@ public class Cadastramento {
 		} catch (NullPointerException e) {
 			JOptionPane.showMessageDialog(null, "CAMPO NÃO PODE SER NULO", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
+	}
+
+	public void cadastrarConta() {
+
+		conta.geradorNumeroConta();
+		conta.digitoConta();
+
+		int numeroConta = conta.getNumeroConta();
+		int digitoConta = conta.getDigitoConta();
+
+		Double valorLimiteCheque = 0.0;
+		int tipo_conta = 1;
+
+		if (cliente.getSalarioLiquido() < 2000.0) {
+
+			valorLimiteCheque = 0.0;
+			tipo_conta = 1;
+
+		} else if (cliente.getSalarioLiquido() >= 2000 && cliente.getSalarioLiquido() < 4000) {
+
+			valorLimiteCheque = 2000.0;
+			tipo_conta = 2;
+
+		} else if (cliente.getSalarioLiquido() >= 4000 & cliente.getSalarioLiquido() < 7500) {
+
+			valorLimiteCheque = 4200.0;
+			tipo_conta = 2;
+
+		} else {
+
+			valorLimiteCheque = 6000.0;
+			tipo_conta = 2;
+
+		}
+
+		int statusConta = 1;
+
+		int id_cliente = Cadastramento.result;
+
+		Conta conta = new Conta(numeroConta, digitoConta, valorLimiteCheque, statusConta, tipo_conta, id_cliente);
+
+		contaDaoJDBC.inserir(conta);
+
 	}
 }
