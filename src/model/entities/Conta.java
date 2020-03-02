@@ -103,9 +103,19 @@ public class Conta implements Serializable {
 
 		String ultimoNumero = converterParaString.substring(5, 6);
 
-		Integer digitoConta = Integer.parseInt(ultimoNumero) - 2;
+		Integer digitoEmInt = Integer.parseInt(ultimoNumero);
 
-		setDigitoConta(digitoConta);
+		if (digitoEmInt == 1) {
+
+			setDigitoConta(9);
+
+		} else {
+
+			Integer digitoConta = digitoEmInt - 2;
+
+			setDigitoConta(digitoConta);
+
+		}
 
 	}
 

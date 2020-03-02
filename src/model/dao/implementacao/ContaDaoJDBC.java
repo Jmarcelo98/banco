@@ -40,11 +40,10 @@ public class ContaDaoJDBC implements ContaDao {
 			int linhasAfetadas = st.executeUpdate();
 
 			if (linhasAfetadas > 0) {
-				JOptionPane.showMessageDialog(null, "ATENDENTE CADASTRADO COM SUCESSO", "CADASTRO ATENDENTE",
+				JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO", "CADASTRO CONTA",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR O ATENDENTE", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR CONTA", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
 
 		} catch (SQLException e) {
@@ -78,34 +77,6 @@ public class ContaDaoJDBC implements ContaDao {
 	public List<Conta> procurarTodos() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public void atualizandoStatusDeAcordoComIdCliente() {
-
-		try {
-
-			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
-
-			st = conexao.prepareStatement("select id_cliente from conta");
-
-			rs = st.executeQuery();
-
-			Integer id_cliente = rs.getInt("id_cliente");
-
-			if (id_cliente != 1 || id_cliente != 2) {
-
-				st = conexao.prepareStatement("update conta set id_status_conta = 2");
-				st.executeUpdate();
-
-			}
-
-		} catch (SQLException e) {
-			throw new BdExcecao(e.getMessage());
-		} finally {
-			Conexao_banco_dados.fecharStatement(st);
-			Conexao_banco_dados.fecharConexaoComoBanco();
-		}
-
 	}
 
 }

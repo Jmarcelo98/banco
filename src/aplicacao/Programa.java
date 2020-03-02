@@ -1,14 +1,18 @@
 package aplicacao;
 
+import java.util.IllegalFormatCodePointException;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+
+import org.w3c.dom.CDATASection;
 
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
 import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.dao.implementacao.SetorDaoJDBC;
+import model.entities.Cliente;
 import model.entities.Conta;
 import model.entities.Gerente;
 import model.services.Atualizacao;
@@ -19,13 +23,14 @@ public class Programa {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-		
-		
+
+		Cadastramento cadastramento = new Cadastramento();
+
 //		
 		Conta conta = new Conta();
 //		conta.geradorNumeroConta();
 //		conta.digitoConta();
-		
+
 		conta.geradorNumeroConta();
 		conta.digitoConta();
 
@@ -127,14 +132,40 @@ public class Programa {
 
 			if (acaoClienteSelecionado == acoesCliente[0]) {
 
-				Cadastramento cadastramento = new Cadastramento();
+				cadastramento = new Cadastramento();
 				cadastramento.cadastrarCliente();
 
 			} else if (acaoClienteSelecionado == acoesCliente[1]) {
 
-				ClienteDaoJDBC cliente = new ClienteDaoJDBC();
 				String CPF = JOptionPane.showInputDialog(null, "INFORME O CPF DO CLIENTE");
-				
+				ClienteDaoJDBC clienteDaoJDBC = new ClienteDaoJDBC();
+
+				int resultado = clienteDaoJDBC.pegarId(CPF);
+
+				if (resultado == 0) {
+
+					int resposta = JOptionPane.showConfirmDialog(null, "CLIENTE NÃO CADASTRADO\n\nDESEJA CADASTRÁ-LO?",
+							"CADASTRADO CLIENTE", JOptionPane.YES_NO_OPTION);
+
+					if (resposta == 0) {
+						cadastramento = new Cadastramento();
+						cadastramento.cadastrarCliente();
+					}
+
+				} else {
+
+					int pegarId = clienteDaoJDBC.pegarId(CPF);
+
+					cadastramento.setResult(pegarId);
+
+					double pegarSalario = clienteDaoJDBC.pegarSalario(CPF);
+
+					Cliente cliente = new Cliente();
+					cliente.setSalarioLiquido(pegarSalario);
+
+					cadastramento.cadastrarConta();
+
+				}
 
 			}
 

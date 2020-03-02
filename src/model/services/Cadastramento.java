@@ -32,7 +32,15 @@ public class Cadastramento {
 
 	ValidarEmail validarEmail = new ValidarEmail();
 
-	static int result;
+	private int result;
+
+	public int getResult() {
+		return result;
+	}
+
+	public void setResult(int result) {
+		this.result = result;
+	}
 
 	public void cadastrarAtendente() {
 
@@ -211,7 +219,7 @@ public class Cadastramento {
 
 			}
 
-			result = clienteDaoJDBC.pegarId(CPF);
+			setResult(clienteDaoJDBC.pegarId(CPF));
 			cadastrarConta();
 
 		} catch (InputMismatchException e) {
@@ -260,7 +268,7 @@ public class Cadastramento {
 
 		int statusConta = 1;
 
-		int id_cliente = Cadastramento.result;
+		int id_cliente = getResult();
 
 		Conta conta = new Conta(numeroConta, digitoConta, valorLimiteCheque, statusConta, tipo_conta, id_cliente);
 

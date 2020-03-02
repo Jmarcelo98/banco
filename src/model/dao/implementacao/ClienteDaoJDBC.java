@@ -240,6 +240,8 @@ public class ClienteDaoJDBC implements ClienteDao {
 
 	public String conferirSeClienteJaCadastrado(String CPF) {
 
+		Cliente cliente = new Cliente();
+
 		try {
 
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
@@ -253,18 +255,12 @@ public class ClienteDaoJDBC implements ClienteDao {
 
 			while (rs.next()) {
 
-				Cliente cliente = new Cliente();
-
 				cliente.setNomeCompleto(rs.getString("cliente.nome_completo"));
 				cliente.setCPF(rs.getString("cliente.cpf"));
 				cliente.setEmail(rs.getString("cliente.email"));
 				cliente.setTelefone(rs.getString("cliente.telefone"));
 				cliente.setDataNascimento(rs.getString("cliente.data_nascimento"));
 				cliente.setSalarioLiquido(rs.getDouble("cliente.salario"));
-
-			}
-
-			if (rs != null) {
 
 			}
 
@@ -278,6 +274,7 @@ public class ClienteDaoJDBC implements ClienteDao {
 
 	public int pegarId(String CPF) {
 		int idDele = 0;
+
 		try {
 
 			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
@@ -299,6 +296,34 @@ public class ClienteDaoJDBC implements ClienteDao {
 		}
 
 		return idDele;
+
+	}
+
+	public Double pegarSalario(String CPF) {
+
+		double salarioDele = 0;
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement("select SALARIO from cliente where cpf = ?");
+
+			st.setString(1, CPF);
+
+			rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				salarioDele = rs.getInt("SALARIO");
+
+			}
+
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+
+		return salarioDele;
 
 	}
 
