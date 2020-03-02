@@ -91,8 +91,6 @@ public class Conta implements Serializable {
 
 		Integer resultado = Integer.parseInt(retorno);
 
-		System.out.println(retorno);
-
 		setNumeroConta(resultado);
 
 	}
@@ -105,7 +103,7 @@ public class Conta implements Serializable {
 
 		String ultimoNumero = converterParaString.substring(5, 6);
 
-		Integer digitoConta = Integer.parseInt(ultimoNumero);
+		Integer digitoConta = Integer.parseInt(ultimoNumero) - 2;
 
 		setDigitoConta(digitoConta);
 

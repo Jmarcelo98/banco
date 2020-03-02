@@ -19,10 +19,15 @@ public class Programa {
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
+		
+		
 //		
-//		Conta conta = new Conta();
+		Conta conta = new Conta();
 //		conta.geradorNumeroConta();
 //		conta.digitoConta();
+		
+		conta.geradorNumeroConta();
+		conta.digitoConta();
 
 		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES", "CONTAS" };
 
@@ -115,14 +120,12 @@ public class Programa {
 
 		} else if (acaoInicialSelecionada == acoesIniciais[1]) {
 
-			Object[] acoesCliente = { "CADASTRAR CONTA", "PROCURAR CLIENTE" };
+			Object[] acoesCliente = { "CADASTRAR CLIENTE E CONTA", "CADASTRAR CONTA", "PROCURAR CLIENTE" };
 
 			Object acaoClienteSelecionado = JOptionPane.showInputDialog(null, "SELECIONE A AÇÃO DESEJADA" + "\n\n",
 					"ManDad", JOptionPane.INFORMATION_MESSAGE, null, acoesCliente, acoesCliente[0]);
 
 			if (acaoClienteSelecionado == acoesCliente[0]) {
-
-//				String CPF = JOptionPane.showInputDialog(null, "INFORME O CPF DO CLIENTE");
 
 				Cadastramento cadastramento = new Cadastramento();
 				cadastramento.cadastrarCliente();
@@ -131,6 +134,7 @@ public class Programa {
 
 				ClienteDaoJDBC cliente = new ClienteDaoJDBC();
 				String CPF = JOptionPane.showInputDialog(null, "INFORME O CPF DO CLIENTE");
+				
 
 			}
 
