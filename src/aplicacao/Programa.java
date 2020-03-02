@@ -1,21 +1,14 @@
 package aplicacao;
 
-import java.util.IllegalFormatCodePointException;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import org.w3c.dom.CDATASection;
-
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
-import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
-import model.dao.implementacao.SetorDaoJDBC;
 import model.entities.Cliente;
 import model.entities.Conta;
-import model.entities.Gerente;
-import model.services.Atualizacao;
 import model.services.Cadastramento;
 
 public class Programa {
@@ -34,7 +27,7 @@ public class Programa {
 		conta.geradorNumeroConta();
 		conta.digitoConta();
 
-		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES", "CONTAS" };
+		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES E CONTAS" };
 
 		Object acaoInicialSelecionada = JOptionPane.showInputDialog(null,
 				"QUAL ÁREA DESEJA FAZER ALGUMA AÇÃO " + "\n\n", "ManDad", JOptionPane.INFORMATION_MESSAGE, null,
@@ -125,7 +118,8 @@ public class Programa {
 
 		} else if (acaoInicialSelecionada == acoesIniciais[1]) {
 
-			Object[] acoesCliente = { "CADASTRAR CLIENTE E CONTA", "CADASTRAR CONTA", "PROCURAR CLIENTE" };
+			Object[] acoesCliente = { "CADASTRAR CLIENTE E CONTA", "CADASTRAR CONTA", "PROCURAR CONTA",
+					"PROCURAR CLIENTE" };
 
 			Object acaoClienteSelecionado = JOptionPane.showInputDialog(null, "SELECIONE A AÇÃO DESEJADA" + "\n\n",
 					"ManDad", JOptionPane.INFORMATION_MESSAGE, null, acoesCliente, acoesCliente[0]);
@@ -167,10 +161,12 @@ public class Programa {
 
 				}
 
+			} else if (acaoClienteSelecionado == acoesCliente[2]) {
+				
+				System.out.println("procurar conta");
+
 			}
 
-		} else if (acaoInicialSelecionada == acoesIniciais[2]) {
-			System.out.println("con");
 		}
 
 		sc.close();

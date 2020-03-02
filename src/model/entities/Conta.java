@@ -109,6 +109,10 @@ public class Conta implements Serializable {
 
 			setDigitoConta(9);
 
+		} else if (digitoEmInt == 0) {
+			
+			setDigitoConta(8);
+			
 		} else {
 
 			Integer digitoConta = digitoEmInt - 2;
