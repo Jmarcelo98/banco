@@ -10,10 +10,10 @@ public interface ContaDao {
 
 	void atualizar(Conta contaSimplesObj);
 
-	void deletarPeloNumeroConta(int numero_Conta);
+	void deletarContaPeloId(int id);
 
 	// SE NÃO EXISTIR, RETORNA NULL
-	Conta procurarPeloNumeroConta(int numero_Conta);
+	Conta procurarContaPeloCPF(String CPF);
 
 	List<Conta> procurarTodos();
 

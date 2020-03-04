@@ -62,17 +62,92 @@ public class ContaDaoJDBC implements ContaDao {
 	}
 
 	@Override
-	public void deletarPeloNumeroConta(int numero_Conta) {
-		// TODO Auto-generated method stub
+	public void deletarContaPeloId(int id) {
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement("delete from conta where id = ?");
+
+			st.setInt(1, id);
+
+			int linhasAfetadas = st.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+				JOptionPane.showMessageDialog(null, "CONTA EXCLUÍDA COM SUCESSO", "CONTA BANCÁRIA CLIENTE",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "ERRO AO EXCLUIR A CONTA DO CLIENTE", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
 
 	}
 
 	@Override
-	public Conta procurarPeloNumeroConta(int numero_Conta) {
+	public Conta procurarContaPeloCPF(String CPF) {
 
-		
-		
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement(
+					"select conta.id, numero_conta, digito_conta, LIMITE_CHEQUE_ESPECIAL, TIPO_CONTA, SITUACAO"
+							+ " from conta, cliente, status_conta, tipo_conta" + " where id_cliente = cliente.id"
+							+ " and tipo_conta.id = id_tipo_conta" + " and status_conta.id = ID_STATUS_CONTA"
+							+ " and cliente.CPF = ?");
+
+			st.setString(1, CPF);
+
+			rs = st.executeQuery();
+
+			String contaString = "";
+
+			Conta conta = new Conta();
+
+			while (rs.next()) {
+
+				int id = rs.getInt("conta.id");
+				conta.setNumeroConta(rs.getInt("NUMERO_CONTA"));
+//				int numeroConta = rs.getInt("NUMERO_CONTA");
+				conta.setDigitoConta(rs.getInt("DIGITO_CONTA"));
+//				int digitoConta = rs.getInt("DIGITO_CONTA");
+				double limiteCheque = rs.getDouble("LIMITE_CHEQUE_ESPECIAL");
+				String tipoConta = rs.getString("TIPO_CONTA");
+				String situacao = rs.getString("SITUACAO");
+
+				contaString = contaString + "ID: " + id + "\nNÚMERO DA CONTA: " + conta.getDigitoConta()
+						+ "\nDIGITO DA CONTA: " + conta.getDigitoConta() + "\nLIMITE DO CHEQUE ESPECIAL: "
+						+ limiteCheque + "\nTIPO DE CONTA: " + tipoConta + "\nSITUAÇÃO DA CONTA: " + situacao + "\n\n";
+
+			}
+
+			Integer idDaResposta = Integer.parseInt(
+					JOptionPane.showInputDialog(null, contaString + "\n\nDIGITE O 'ID' DA CONTA QUE DESEJA EXCLUIR"));
+
+			int resposta = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR ESSA CONTA: "
+					+ conta.getNumeroConta() + "-" + conta.getDigitoConta(), "EXCLUSÃO DE CONTA",
+					JOptionPane.YES_NO_OPTION);
+
+			if (resposta == 0) {
+				deletarContaPeloId(idDaResposta);
+			} else {
+				JOptionPane.showMessageDialog(null, "CONTA NÃO EXCLUÍDA", "EXCLUIR CONTA", JOptionPane.ERROR_MESSAGE);
+			}
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+
+		}
 		return null;
+
 	}
 
 	@Override

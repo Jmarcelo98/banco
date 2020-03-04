@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
+import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.entities.Cliente;
 import model.services.Cadastramento;
@@ -117,7 +118,7 @@ public class Programa {
 
 		} else if (acaoInicialSelecionada == acoesIniciais[1]) {
 
-			Object[] acoesCliente = { "CADASTRAR CLIENTE E CONTA", "CADASTRAR CONTA", "PROCURAR CONTA",
+			Object[] acoesCliente = { "CADASTRAR CLIENTE E CONTA", "CADASTRAR CONTA", "EXCLUIR CONTA",
 					"PROCURAR CLIENTE" };
 
 			Object acaoClienteSelecionado = JOptionPane.showInputDialog(null, "SELECIONE A AÇÃO DESEJADA" + "\n\n",
@@ -161,7 +162,9 @@ public class Programa {
 
 			} else if (acaoClienteSelecionado == acoesCliente[2]) {
 
-				System.out.println("procurar conta");
+				ContaDaoJDBC contaDaoJDBC = new ContaDaoJDBC();
+				String cpf = JOptionPane.showInputDialog(null, "DIGITE O CPF DO CLIENTE TITULAR DA CONTA");
+				contaDaoJDBC.procurarContaPeloCPF(cpf);
 
 			}
 
