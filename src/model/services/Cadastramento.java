@@ -34,6 +34,15 @@ public class Cadastramento {
 
 	private int result;
 
+	public Cadastramento() {
+
+	}
+
+	public Cadastramento(int result) {
+		super();
+		this.result = result;
+	}
+
 	public int getResult() {
 		return result;
 	}
@@ -244,17 +253,17 @@ public class Cadastramento {
 		Double valorLimiteCheque = 0.0;
 		int tipo_conta = 1;
 
-		if (cliente.getSalarioLiquido() < 2000.0) {
+		if (Cliente.salario < 2000.0) {
 
 			valorLimiteCheque = 0.0;
 			tipo_conta = 1;
 
-		} else if (cliente.getSalarioLiquido() >= 2000 && cliente.getSalarioLiquido() < 4000) {
+		} else if (Cliente.salario >= 2000 && Cliente.salario < 4000) {
 
 			valorLimiteCheque = 2000.0;
 			tipo_conta = 2;
 
-		} else if (cliente.getSalarioLiquido() >= 4000 & cliente.getSalarioLiquido() < 7500) {
+		} else if (Cliente.salario >= 4000 & Cliente.salario < 7500) {
 
 			valorLimiteCheque = 4200.0;
 			tipo_conta = 2;

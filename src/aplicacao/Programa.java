@@ -8,7 +8,6 @@ import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.entities.Cliente;
-import model.entities.Conta;
 import model.services.Cadastramento;
 
 public class Programa {
@@ -19,13 +18,13 @@ public class Programa {
 
 		Cadastramento cadastramento = new Cadastramento();
 
-//		
-		Conta conta = new Conta();
+////		
+//		Conta conta = new Conta();
+////		conta.geradorNumeroConta();
+////		conta.digitoConta();
+//
 //		conta.geradorNumeroConta();
 //		conta.digitoConta();
-
-		conta.geradorNumeroConta();
-		conta.digitoConta();
 
 		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES E CONTAS" };
 
@@ -150,19 +149,18 @@ public class Programa {
 
 					int pegarId = clienteDaoJDBC.pegarId(CPF);
 
-					cadastramento.setResult(pegarId);
+					cadastramento = new Cadastramento(pegarId);
 
-					double pegarSalario = clienteDaoJDBC.pegarSalario(CPF);
+					Double pegarSalario = clienteDaoJDBC.pegarSalario(CPF);
 
-					Cliente cliente = new Cliente();
-					cliente.setSalarioLiquido(pegarSalario);
+					Cliente.salario = pegarSalario;
 
 					cadastramento.cadastrarConta();
 
 				}
 
 			} else if (acaoClienteSelecionado == acoesCliente[2]) {
-				
+
 				System.out.println("procurar conta");
 
 			}

@@ -15,6 +15,7 @@ public class Cliente implements Serializable {
 	private String telefone;
 	private String dataNascimento;
 	private double salarioLiquido;
+	public static double salario;
 
 	public Cliente() {
 
@@ -25,6 +26,7 @@ public class Cliente implements Serializable {
 		this.email = email;
 		this.telefone = telefone;
 		this.salarioLiquido = salarioLiquido;
+
 	}
 
 	public Cliente(String nomeCompleto, String cPF, String email, String telefone, String dataNascimento,

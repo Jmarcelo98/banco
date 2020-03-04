@@ -62,14 +62,16 @@ public class ContaDaoJDBC implements ContaDao {
 	}
 
 	@Override
-	public void deletarPeloCPF(String CPF) {
+	public void deletarPeloNumeroConta(int numero_Conta) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public Conta procurarPeloCPF(String CPF) {
-		// TODO Auto-generated method stub
+	public Conta procurarPeloNumeroConta(int numero_Conta) {
+
+		
+		
 		return null;
 	}
 
