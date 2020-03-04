@@ -12,12 +12,15 @@ import banco_de_dados.BdExcecao;
 import banco_de_dados.Conexao_banco_dados;
 import model.dao.ContaDao;
 import model.entities.Conta;
+import model.services.Atualizacao;
 
 public class ContaDaoJDBC implements ContaDao {
 
 	Connection conexao = null;
 	PreparedStatement st = null;
 	ResultSet rs = null;
+
+	public static double salarioDigitado;
 
 	@Override
 	public void inserir(Conta contaObj) {
@@ -56,8 +59,26 @@ public class ContaDaoJDBC implements ContaDao {
 	}
 
 	@Override
-	public void atualizar(Conta contaSimplesObj) {
-		// TODO Auto-generated method stub
+	public void atualizar(Conta contaSimplesObj, int id) {
+
+		try {
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao
+					.prepareStatement("update conta set LIMITE_CHEQUE_ESPECIAL = ?, ID_TIPO_CONTA = ? where id= (?)");
+
+			st.setDouble(1, contaSimplesObj.getLimiteCheque());
+			st.setInt(2, contaSimplesObj.getIdTipoConta());
+			st.setInt(3, contaSimplesObj.getIdCliente());
+
+			int linhasAfetadas = st.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		} finally {
+			Conexao_banco_dados.fecharStatement(st);
+			Conexao_banco_dados.fecharConexaoComoBanco();
+		}
 
 	}
 
@@ -116,9 +137,7 @@ public class ContaDaoJDBC implements ContaDao {
 
 				int id = rs.getInt("conta.id");
 				conta.setNumeroConta(rs.getInt("NUMERO_CONTA"));
-//				int numeroConta = rs.getInt("NUMERO_CONTA");
 				conta.setDigitoConta(rs.getInt("DIGITO_CONTA"));
-//				int digitoConta = rs.getInt("DIGITO_CONTA");
 				double limiteCheque = rs.getDouble("LIMITE_CHEQUE_ESPECIAL");
 				String tipoConta = rs.getString("TIPO_CONTA");
 				String situacao = rs.getString("SITUACAO");
@@ -129,17 +148,31 @@ public class ContaDaoJDBC implements ContaDao {
 
 			}
 
-			Integer idDaResposta = Integer.parseInt(
-					JOptionPane.showInputDialog(null, contaString + "\n\nDIGITE O 'ID' DA CONTA QUE DESEJA EXCLUIR"));
+			Object[] valoresPossiveis = { "ATUALIZAR DADOS DA CONTA", "DELETAR CONTA" };
 
-			int resposta = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR ESSA CONTA: "
-					+ conta.getNumeroConta() + "-" + conta.getDigitoConta(), "EXCLUSÃO DE CONTA",
-					JOptionPane.YES_NO_OPTION);
+			Object selectedValue = JOptionPane.showInputDialog(null, contaString, "ATUALIZAR DADOS DA CONTA",
+					JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis, valoresPossiveis[0]);
 
-			if (resposta == 0) {
-				deletarContaPeloId(idDaResposta);
-			} else {
-				JOptionPane.showMessageDialog(null, "CONTA NÃO EXCLUÍDA", "EXCLUIR CONTA", JOptionPane.ERROR_MESSAGE);
+			if (selectedValue == valoresPossiveis[0]) {
+				Atualizacao atu = new Atualizacao();
+				atu.atualizarConta(CPF);
+
+			} else if (selectedValue == valoresPossiveis[1]) {
+
+				Integer idDaResposta = Integer.parseInt(JOptionPane.showInputDialog(null,
+						contaString + "\n\nDIGITE O 'ID' DA CONTA QUE DESEJA EXCLUIR"));
+
+				int resposta = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR ESSA CONTA: "
+						+ conta.getNumeroConta() + "-" + conta.getDigitoConta(), "EXCLUSÃO DE CONTA",
+						JOptionPane.YES_NO_OPTION);
+
+				if (resposta == 0) {
+					deletarContaPeloId(idDaResposta);
+				} else {
+					JOptionPane.showMessageDialog(null, "CONTA NÃO EXCLUÍDA", "EXCLUIR CONTA",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
 			}
 
 		} catch (SQLException e) {
@@ -154,6 +187,63 @@ public class ContaDaoJDBC implements ContaDao {
 	public List<Conta> procurarTodos() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Double pegarSalario(String CPF) {
+
+		double resultado = 0;
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao.prepareStatement("select salario from cliente where cpf = ?");
+
+			st.setString(1, CPF);
+
+			rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				resultado = rs.getDouble("salario");
+
+			}
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		}
+
+		return resultado;
+
+	}
+
+	public int pegarIdContaDeAcordoComCpfCliente(String CPF) {
+
+		int idDele = 0;
+
+		try {
+
+			conexao = Conexao_banco_dados.abrirConexaoComOBanco();
+
+			st = conexao
+					.prepareStatement("select conta.id from conta, cliente where id_cliente = cliente.id and cpf = ?");
+
+			st.setString(1, CPF);
+
+			rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				idDele = rs.getInt("conta.id");
+
+			}
+
+		} catch (SQLException e) {
+			throw new BdExcecao(e.getMessage());
+		}
+
+		return idDele;
+
 	}
 
 }

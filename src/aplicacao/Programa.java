@@ -9,6 +9,7 @@ import model.dao.implementacao.ClienteDaoJDBC;
 import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.entities.Cliente;
+import model.services.Atualizacao;
 import model.services.Cadastramento;
 
 public class Programa {
@@ -19,6 +20,9 @@ public class Programa {
 
 		Cadastramento cadastramento = new Cadastramento();
 
+		Atualizacao att = new Atualizacao();
+		att.atualizarCliente("545.665.897-54");
+		
 ////		
 //		Conta conta = new Conta();
 ////		conta.geradorNumeroConta();

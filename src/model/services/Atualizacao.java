@@ -6,10 +6,12 @@ import javax.swing.JOptionPane;
 
 import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
+import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
 import model.dao.implementacao.SetorDaoJDBC;
 import model.entities.Atendente;
 import model.entities.Cliente;
+import model.entities.Conta;
 import model.entities.Gerente;
 
 public class Atualizacao {
@@ -18,6 +20,7 @@ public class Atualizacao {
 	GerenteDaoJDBC gerenteDaoJDBC = new GerenteDaoJDBC();
 	AtendenteDaoJDBC atendenteDaoJDBC = new AtendenteDaoJDBC();
 	ClienteDaoJDBC clienteDaoJDBC = new ClienteDaoJDBC();
+	ContaDaoJDBC contaDaoJDBC = new ContaDaoJDBC();
 	Atendente atendente = new Atendente();
 	Gerente gerente = new Gerente();
 	Cliente cliente = new Cliente();
@@ -180,6 +183,43 @@ public class Atualizacao {
 		} catch (NullPointerException e) {
 			JOptionPane.showMessageDialog(null, "CAMPO NÃO PODE SER NULO", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
+
+	}
+
+	public void atualizarConta(String CPF) {
+
+		int idCliente = contaDaoJDBC.pegarIdContaDeAcordoComCpfCliente(CPF);
+
+		// SALARIO DIGITADO
+		Double salarioAtualizado = ContaDaoJDBC.salarioDigitado;
+
+		Double valorLimiteCheque = 0.0;
+		int tipo_conta = 1;
+
+		if (salarioAtualizado < 2000.0) {
+
+			valorLimiteCheque = 0.0;
+			tipo_conta = 1;
+
+		} else if (salarioAtualizado >= 2000 && salarioAtualizado < 4000) {
+
+			valorLimiteCheque = 2000.0;
+			tipo_conta = 2;
+
+		} else if (salarioAtualizado >= 4000 & salarioAtualizado < 7500) {
+
+			valorLimiteCheque = 4200.0;
+			tipo_conta = 2;
+
+		} else {
+
+			valorLimiteCheque = 6000.0;
+			tipo_conta = 2;
+
+		}
+
+		Conta conta = new Conta(null, null, valorLimiteCheque, null, tipo_conta, idCliente);
+		contaDaoJDBC.atualizar(conta, tipo_conta);
 
 	}
 }

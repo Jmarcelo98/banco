@@ -8,7 +8,7 @@ public interface ContaDao {
 
 	void inserir(Conta contaSimplesObj);
 
-	void atualizar(Conta contaSimplesObj);
+	void atualizar(Conta contaSimplesObj, int id);
 
 	void deletarContaPeloId(int id);
 

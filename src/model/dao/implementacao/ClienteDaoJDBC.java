@@ -83,6 +83,10 @@ public class ClienteDaoJDBC implements ClienteDao {
 				st.setDouble(1, clienteObj.getSalarioLiquido());
 				st.setString(2, CPF);
 
+				ContaDaoJDBC.salarioDigitado = clienteObj.getSalarioLiquido();
+				Atualizacao att = new Atualizacao();
+				att.atualizarConta(CPF);
+
 			}
 
 			int linhasAfetadas = st.executeUpdate();
