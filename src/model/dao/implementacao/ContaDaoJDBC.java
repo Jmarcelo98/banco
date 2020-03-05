@@ -71,7 +71,7 @@ public class ContaDaoJDBC implements ContaDao {
 			st.setInt(2, contaSimplesObj.getIdTipoConta());
 			st.setInt(3, contaSimplesObj.getIdCliente());
 
-			int linhasAfetadas = st.executeUpdate();
+			st.executeUpdate();
 
 		} catch (SQLException e) {
 			throw new BdExcecao(e.getMessage());
