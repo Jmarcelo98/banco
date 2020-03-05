@@ -221,6 +221,7 @@ public class Cadastramento {
 				if (resposta == 0) {
 					cliente = new Cliente(nomeCompleto, CPF, email, telefoneFomartado, dataNascimentoFormatado,
 							salarioLiquido);
+					Cliente.salario = salarioLiquido;
 					clienteDaoJDBC.inserir(cliente);
 				} else {
 					JOptionPane.showMessageDialog(null, "CLIENTE NÃO CADASTRADO", "ERROR", JOptionPane.ERROR_MESSAGE);

@@ -12,7 +12,6 @@ import banco_de_dados.BdExcecao;
 import banco_de_dados.Conexao_banco_dados;
 import model.dao.ContaDao;
 import model.entities.Conta;
-import model.services.Atualizacao;
 
 public class ContaDaoJDBC implements ContaDao {
 
@@ -148,22 +147,18 @@ public class ContaDaoJDBC implements ContaDao {
 
 			}
 
-			Object[] valoresPossiveis = { "ATUALIZAR DADOS DA CONTA", "DELETAR CONTA" };
+			Object[] valoresPossiveis = { "EXCLUIR CONTA" };
 
 			Object selectedValue = JOptionPane.showInputDialog(null, contaString, "ATUALIZAR DADOS DA CONTA",
 					JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis, valoresPossiveis[0]);
 
 			if (selectedValue == valoresPossiveis[0]) {
-				Atualizacao atu = new Atualizacao();
-				atu.atualizarConta(CPF);
-
-			} else if (selectedValue == valoresPossiveis[1]) {
 
 				Integer idDaResposta = Integer.parseInt(JOptionPane.showInputDialog(null,
 						contaString + "\n\nDIGITE O 'ID' DA CONTA QUE DESEJA EXCLUIR"));
 
 				int resposta = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA EXCLUIR ESSA CONTA: "
-						+ conta.getNumeroConta() + "-" + conta.getDigitoConta(), "EXCLUSÃO DE CONTA",
+						+ conta.getNumeroConta() + "-" + conta.getDigitoConta(), "EXCLUIR CONTA",
 						JOptionPane.YES_NO_OPTION);
 
 				if (resposta == 0) {

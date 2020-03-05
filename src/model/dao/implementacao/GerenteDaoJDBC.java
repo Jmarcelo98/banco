@@ -85,10 +85,10 @@ public class GerenteDaoJDBC implements GerenteDao {
 			int linhasAfetadas = st.executeUpdate();
 
 			if (linhasAfetadas > 0) {
-				JOptionPane.showMessageDialog(null, "CADASTRADO ALTERADO COM SUCESSO", "CADASTRO GERENTE",
+				JOptionPane.showMessageDialog(null, "CADASTRADO DO GERENTE ALTERADO COM SUCESSO", "CADASTRO GERENTE",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "ERRO AO ATUALIZAR DADOS DO GERENTE", "ERROR",
+				JOptionPane.showMessageDialog(null, "ERRO AO ATUALIZAR CADASTRO DO GERENTE", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 
@@ -160,13 +160,13 @@ public class GerenteDaoJDBC implements GerenteDao {
 
 				String setorEmString = setor.mostrarSetorDeAcordoComId(setorNome);
 
-				Object[] valoresPossiveis = { "ATUALIZAR DADOS DO GERENTE", "DELETAR DADOS DO GERENTE" };
+				Object[] valoresPossiveis = { "ATUALIZAR CADASTRO DO GERENTE", "DELETAR CADASTRO DO GERENTE" };
 
 				Object selectedValue = JOptionPane.showInputDialog(null,
 						"NOME COMPLETO: " + gerente.getNome_completo() + "\nMATRÍCULA: " + gerente.getMatricula()
 								+ "\nEMAIL: " + gerente.getEmail() + "\nTELEFONE: " + gerente.getTelefone()
 								+ "\nSETOR RESPONSÁVEL: " + setorEmString + "\n\n",
-						"ATUALIZAR DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
+						"ATUALIZAR CADASTRO DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
 						valoresPossiveis[0]);
 
 				if (selectedValue == valoresPossiveis[0]) {

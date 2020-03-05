@@ -92,10 +92,10 @@ public class ClienteDaoJDBC implements ClienteDao {
 			int linhasAfetadas = st.executeUpdate();
 
 			if (linhasAfetadas > 0) {
-				JOptionPane.showMessageDialog(null, "CADASTRADO ALTERADO COM SUCESSO", "CADASTRO CLIENTE",
+				JOptionPane.showMessageDialog(null, "CADASTRO DO CLIENTE ATUALIZADO COM SUCESSO", "CADASTRO CLIENTE",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "ERRO AO ATUALIZAR DADOS DO CLIENTE", "ERROR",
+				JOptionPane.showMessageDialog(null, "ERRO AO ATUALIZAR CADASTRO DO CLIENTE", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 
@@ -161,14 +161,14 @@ public class ClienteDaoJDBC implements ClienteDao {
 				cliente.setDataNascimento(rs.getString("cliente.data_nascimento"));
 				cliente.setSalarioLiquido(rs.getDouble("cliente.salario"));
 
-				Object[] valoresPossiveis = { "ATUALIZAR DADOS DO CLIENTE", "DELETAR DADOS DO CLIENTE" };
+				Object[] valoresPossiveis = { "ATUALIZAR CADASTRO DO CLIENTE", "EXCLUIR CADASTRO DO CLIENTE" };
 
 				Object selectedValue = JOptionPane.showInputDialog(null,
 						"NOME COMPLETO: " + cliente.getNomeCompleto() + "\nCPF: " + cliente.getCPF() + "\nEMAIL: "
 								+ cliente.getEmail() + "\nTELEFONE: " + cliente.getTelefone() + "\nDATA DE NASCIMENTO: "
 								+ cliente.getDataNascimento() + "\nSALÁRIO LÍQUIDO: " + cliente.getSalarioLiquido()
 								+ "\n\n",
-						"ATUALIZAR DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
+						"ATUALIZAR CADASTRO DO CLIENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
 						valoresPossiveis[0]);
 
 				if (selectedValue == valoresPossiveis[0]) {
@@ -180,7 +180,7 @@ public class ClienteDaoJDBC implements ClienteDao {
 
 					int resposta = JOptionPane.showConfirmDialog(null,
 							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE CLIENTE: '" + cliente.getNomeCompleto() + " '",
-							"EXCLUSÃO DE CLIENTE", JOptionPane.YES_NO_OPTION);
+							"EXCLUIR CLIENTE", JOptionPane.YES_NO_OPTION);
 
 					if (resposta == 0) {
 						deletarPeloCPF(CPF);

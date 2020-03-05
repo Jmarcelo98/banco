@@ -8,8 +8,6 @@ import model.dao.implementacao.AtendenteDaoJDBC;
 import model.dao.implementacao.ClienteDaoJDBC;
 import model.dao.implementacao.ContaDaoJDBC;
 import model.dao.implementacao.GerenteDaoJDBC;
-import model.entities.Cliente;
-import model.services.Atualizacao;
 import model.services.Cadastramento;
 
 public class Programa {
@@ -152,14 +150,6 @@ public class Programa {
 				} else {
 
 					clienteDaoJDBC.procurarPeloCPF(CPF);
-
-//					cadastramento = new Cadastramento(pegarId);
-//
-//					Double pegarSalario = clienteDaoJDBC.pegarSalario(CPF);
-//
-//					Cliente.salario = pegarSalario;
-//
-//					cadastramento.cadastrarConta();
 
 				}
 

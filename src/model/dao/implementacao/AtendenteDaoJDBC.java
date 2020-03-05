@@ -42,7 +42,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 				JOptionPane.showMessageDialog(null, "ATENDENTE CADASTRADO COM SUCESSO", "CADASTRO ATENDENTE",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR O ATENDENTE", "ERROR",
+				JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR DADOS DO ATENDENTE", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 
@@ -85,7 +85,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 			int linhasAfetadas = st.executeUpdate();
 
 			if (linhasAfetadas > 0) {
-				JOptionPane.showMessageDialog(null, "CADASTRADO ALTERADO COM SUCESSO", "CADASTRO ATENDENTE",
+				JOptionPane.showMessageDialog(null, "CADASTRADO DO ATENDENTE ATUALIZADO COM SUCESSO", "CADASTRO ATENDENTE",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(null, "ERRO AO ATUALIZAR DADOS DO ATENDENTE", "ERROR",
@@ -160,13 +160,13 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 				String nomeGerente = gerenteDaoJDBC.mostrarGerenteDeAcordoComId(idGerenteResponsavel);
 
-				Object[] valoresPossiveis = { "ATUALIZAR DADOS DO ATENDENTE", "DELETAR DADOS DO ATENDENTE" };
+				Object[] valoresPossiveis = { "ATUALIZAR DADOS DO ATENDENTE", "EXCLUIR ATENDENTE" };
 
 				Object selectedValue = JOptionPane.showInputDialog(null,
 						"NOME COMPLETO: " + atendente.getNome_completo() + "\nMATRÍCULA: " + atendente.getMatricula()
 								+ "\nEMAIL: " + atendente.getEmail() + "\nTELEFONE: " + atendente.getTelefone()
 								+ "\nGERENTE RESPONSÁVEL: " + nomeGerente + "\n\n",
-						"ATUALIZAR DADOS DO GERENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
+						"ATUALIZAR DADOS DO ATENDENTE", JOptionPane.INFORMATION_MESSAGE, null, valoresPossiveis,
 						valoresPossiveis[0]);
 
 				if (selectedValue == valoresPossiveis[0]) {
@@ -177,7 +177,7 @@ public class AtendenteDaoJDBC implements AtendenteDao {
 
 					int resposta = JOptionPane.showConfirmDialog(null,
 							"TEM CERTEZA QUE DESEJA EXCLUIR ESSE ATENDENTE: '" + atendente.getNome_completo() + " '",
-							"EXCLUSÃO DE GERENTE", JOptionPane.YES_NO_OPTION);
+							"EXCLUIR ATENDENTE", JOptionPane.YES_NO_OPTION);
 
 					if (resposta == 0) {
 						deletarPelaMatricula(Matricula);
