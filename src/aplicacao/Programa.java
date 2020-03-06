@@ -14,20 +14,7 @@ public class Programa {
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System.in);
-
 		Cadastramento cadastramento = new Cadastramento();
-//
-//		Atualizacao att = new Atualizacao();
-//		att.atualizarCliente("545.665.897-54");
-
-////		
-//		Conta conta = new Conta();
-////		conta.geradorNumeroConta();
-////		conta.digitoConta();
-//
-//		conta.geradorNumeroConta();
-//		conta.digitoConta();
 
 		Object[] acoesIniciais = { "FUNCIONÁRIOS", "CLIENTES", "CONTAS" };
 
@@ -171,8 +158,6 @@ public class Programa {
 			}
 
 		}
-
-		sc.close();
 
 	}
 
